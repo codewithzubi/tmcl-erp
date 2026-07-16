@@ -24,10 +24,16 @@ class SlaughterRecordController extends Controller
         $data = $request->validate($this->rules());
 
         if (empty($data['animal_code']) || empty($data['animal_sequence_number'])) {
-            $lot = \App\Models\Lot::find($data['lot_id']);
-            $seq = SlaughterRecord::where('lot_id', $data['lot_id'])->count() + 1;
-            $data['animal_sequence_number'] = $seq;
-            $data['animal_code'] ??= $lot->lot_code.'-'.str_pad((string) $seq, 3, '0', STR_PAD_LEFT);
+            if (!empty($data['lot_id'])) {
+                $lot = \App\Models\Lot::find($data['lot_id']);
+                $seq = SlaughterRecord::where('lot_id', $data['lot_id'])->count() + 1;
+                $data['animal_sequence_number'] = $seq;
+                $data['animal_code'] ??= $lot->lot_code.'-'.str_pad((string) $seq, 3, '0', STR_PAD_LEFT);
+            } else {
+                $seq = SlaughterRecord::count() + 1;
+                $data['animal_sequence_number'] = $seq;
+                $data['animal_code'] ??= 'SLT-'.str_pad((string) $seq, 4, '0', STR_PAD_LEFT);
+            }
         }
 
         $record = SlaughterRecord::create($data);
@@ -39,7 +45,7 @@ class SlaughterRecordController extends Controller
     public function show(SlaughterRecord $slaughterRecord)
     {
         return $slaughterRecord->load(
-            'lot', 'offalRecoveries', 'carcassWeightRecord',
+            'lot', 'offalRecoveries', 'carcassWeightRecords',
             'veterinaryInspections', 'meatDeductions', 'bonelessRecord', 'botiRecord'
         );
     }
@@ -65,10 +71,11 @@ class SlaughterRecordController extends Controller
     {
         return [
             'animal_code' => ['nullable', 'string', 'max:255', Rule::unique('slaughter_records', 'animal_code')->ignore($ignoreId)],
-            'lot_id' => ['required', 'exists:lots,id'],
+            'lot_id' => ['nullable', 'exists:lots,id'],
             'sales_order_number' => ['nullable', 'string', 'max:255'],
             'animal_sequence_number' => ['nullable', 'integer', 'min:1'],
             'slaughter_date' => ['required', 'date'],
+            'start_datetime' => ['nullable', 'date'],
             'slaughter_operator' => ['required', 'string', 'max:255'],
             'processing_status' => ['required', Rule::in(['In Progress', 'Completed'])],
             'remarks' => ['nullable', 'string'],
@@ -79,9 +86,14 @@ class SlaughterRecordController extends Controller
             'meat_checker' => ['nullable', 'string', 'max:255'],
             'destination' => ['nullable', 'string', 'max:255'],
             'final_product' => ['nullable', 'string', 'max:255'],
-            'planned_chiller_id' => ['nullable', 'exists:storage_units,id'],
+            'planned_chiller' => ['nullable', 'string', 'max:255'],
             'belt_attachment' => ['nullable', 'string', 'max:255'],
             'carcass_type' => ['nullable', 'string', 'max:255'],
+            'teeth' => ['nullable', 'string', 'max:255'],
+            'age' => ['nullable', 'string', 'max:255'],
+            'gender' => ['nullable', 'string', 'max:255'],
+            'specie' => ['nullable', 'string', 'max:255'],
+            'attachment_path' => ['nullable', 'string', 'max:255'],
             'end_slaughter_at' => ['nullable', 'date'],
             'rejection_weight' => ['nullable', 'numeric', 'min:0'],
             'final_weight' => ['nullable', 'numeric', 'min:0'],

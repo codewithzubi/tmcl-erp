@@ -26,6 +26,11 @@ class SupplierController extends Controller
     {
         $data = $request->validate($this->rules());
         $data['supplier_code'] ??= 'SUP-'.str_pad((string) (Supplier::max('id') + 1), 4, '0', STR_PAD_LEFT);
+        $data['company_name'] ??= $data['supplier_name'];
+        $data['city'] ??= 'N/A';
+        $data['country'] ??= 'N/A';
+        $data['currency'] ??= 'PKR';
+        $data['status'] ??= 'Active';
 
         return Supplier::create($data);
     }
@@ -55,20 +60,20 @@ class SupplierController extends Controller
         return [
             'supplier_code' => ['nullable', 'string', 'max:255', Rule::unique('suppliers', 'supplier_code')->ignore($ignoreId)],
             'supplier_type' => ['required', Rule::in(['Individual Farmer', 'Livestock Trader', 'Feedlot/Farm Company'])],
-            'company_name' => ['required', 'string', 'max:255'],
+            'company_name' => ['nullable', 'string', 'max:255'],
             'supplier_name' => ['required', 'string', 'max:255'],
             'contact_person' => ['required', 'string', 'max:255'],
             'cnic_or_registration_no' => ['required', 'string', 'max:255'],
             'mobile' => ['required', 'string', 'max:50'],
             'email' => ['required', 'email'],
             'address' => ['required', 'string'],
-            'city' => ['required', 'string', 'max:255'],
-            'country' => ['required', 'string', 'max:255'],
+            'city' => ['nullable', 'string', 'max:255'],
+            'country' => ['nullable', 'string', 'max:255'],
             'tax_registration_number' => ['nullable', 'string', 'max:255'],
             'payment_terms' => ['required', 'string', 'max:255'],
             'bank_details' => ['nullable', 'string'],
-            'currency' => ['required', 'string', 'max:10'],
-            'status' => ['required', Rule::in(['Active', 'Inactive'])],
+            'currency' => ['nullable', 'string', 'max:10'],
+            'status' => ['nullable', Rule::in(['Active', 'Inactive'])],
             'remarks' => ['nullable', 'string'],
         ];
     }

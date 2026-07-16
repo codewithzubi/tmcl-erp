@@ -8,14 +8,16 @@ class SlaughterRecord extends Model
 {
     protected $fillable = [
         'animal_code', 'lot_id', 'sales_order_number', 'animal_sequence_number',
-        'slaughter_date', 'slaughter_operator', 'processing_status', 'remarks',
+        'slaughter_date', 'start_datetime', 'slaughter_operator', 'processing_status', 'remarks',
         'supplier_id', 'customer_id', 'agent', 'doctor', 'meat_checker', 'destination',
-        'final_product', 'planned_chiller_id', 'belt_attachment', 'carcass_type',
+        'final_product', 'planned_chiller', 'belt_attachment', 'carcass_type',
+        'teeth', 'age', 'gender', 'specie', 'attachment_path',
         'end_slaughter_at', 'rejection_weight', 'final_weight',
     ];
 
     protected $casts = [
         'slaughter_date' => 'date',
+        'start_datetime' => 'datetime',
         'end_slaughter_at' => 'datetime',
     ];
 
@@ -34,19 +36,14 @@ class SlaughterRecord extends Model
         return $this->belongsTo(Customer::class);
     }
 
-    public function plannedChiller()
-    {
-        return $this->belongsTo(StorageUnit::class, 'planned_chiller_id');
-    }
-
     public function offalRecoveries()
     {
         return $this->hasMany(OffalRecovery::class);
     }
 
-    public function carcassWeightRecord()
+    public function carcassWeightRecords()
     {
-        return $this->hasOne(CarcassWeightRecord::class);
+        return $this->hasMany(CarcassWeightRecord::class);
     }
 
     public function veterinaryInspections()

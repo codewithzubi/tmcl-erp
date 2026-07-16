@@ -99,7 +99,8 @@ class CarcassWeightRecordController extends Controller
     private function rules(?int $ignoreId = null): array
     {
         return [
-            'slaughter_record_id' => ['required', 'exists:slaughter_records,id', Rule::unique('carcass_weight_records', 'slaughter_record_id')->ignore($ignoreId)],
+            'slaughter_record_id' => ['required', 'exists:slaughter_records,id'],
+            'carcass_animal_id' => ['nullable', 'string', 'max:255'],
             'hanging_weight' => ['required', 'numeric', 'min:0'],
             'weight_date_time' => ['required', 'date'],
             'scale_id' => ['required', 'string', 'max:255'],
