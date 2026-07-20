@@ -8,7 +8,7 @@ class StorageSession extends Model
 {
     protected $fillable = [
         'session_number', 'storage_unit_id', 'lot_id', 'product_weight',
-        'time_in', 'time_out', 'status',
+        'time_in', 'time_out', 'planned_duration_hours', 'status',
     ];
 
     protected $casts = [

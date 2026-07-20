@@ -75,6 +75,7 @@ class StorageSessionController extends Controller
             'product_weight' => ['required', 'numeric', 'min:0'],
             'time_in' => ['required', 'date'],
             'time_out' => ['nullable', 'date'],
+            'planned_duration_hours' => ['nullable', 'integer', 'min:0'],
             'status' => ['required', Rule::in(['Active', 'Completed'])],
         ];
     }
