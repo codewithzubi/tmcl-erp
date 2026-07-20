@@ -23,6 +23,9 @@ class UserController extends Controller
             'role_id' => ['nullable', 'exists:roles,id'],
             'department' => ['nullable', 'string', 'max:255'],
             'status' => ['required', Rule::in(['Active', 'Inactive'])],
+            'phone' => ['nullable', 'string', 'max:50'],
+            'gender' => ['nullable', Rule::in(['Male', 'Female', 'Other'])],
+            'picture' => ['nullable', 'string'],
         ]);
 
         $data['password'] = bcrypt($data['password']);
@@ -45,6 +48,9 @@ class UserController extends Controller
             'role_id' => ['nullable', 'exists:roles,id'],
             'department' => ['nullable', 'string', 'max:255'],
             'status' => ['required', Rule::in(['Active', 'Inactive'])],
+            'phone' => ['nullable', 'string', 'max:50'],
+            'gender' => ['nullable', Rule::in(['Male', 'Female', 'Other'])],
+            'picture' => ['nullable', 'string'],
         ]);
 
         if (! empty($data['password'])) {
