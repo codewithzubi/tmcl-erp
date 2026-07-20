@@ -17,6 +17,7 @@ class RoleController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255', 'unique:roles,name'],
+            'display_name' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'permissions' => ['nullable', 'array'],
             'status' => ['required', Rule::in(['Active', 'Inactive'])],
@@ -34,6 +35,7 @@ class RoleController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique('roles', 'name')->ignore($role->id)],
+            'display_name' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'permissions' => ['nullable', 'array'],
             'status' => ['required', Rule::in(['Active', 'Inactive'])],
