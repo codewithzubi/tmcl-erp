@@ -61,8 +61,16 @@ class SlaughterRecordController extends Controller
 
     public function destroy(SlaughterRecord $slaughterRecord)
     {
+        try {
+            $slaughterRecord->delete();
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ((int) $e->getCode() === 23000) {
+                abort(409, 'This animal has Boneless/Boti processing records linked to it and cannot be deleted. Delete those records first.');
+            }
+            throw $e;
+        }
+
         $this->logEvent('Slaughter', 'Slaughter', $slaughterRecord->id, 'Delete', $slaughterRecord->animal_code);
-        $slaughterRecord->delete();
 
         return response()->noContent();
     }
