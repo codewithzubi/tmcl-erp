@@ -32,7 +32,7 @@ class SlaughterRecordController extends Controller
             } else {
                 $seq = SlaughterRecord::count() + 1;
                 $data['animal_sequence_number'] = $seq;
-                $data['animal_code'] ??= 'SLT-'.str_pad((string) $seq, 4, '0', STR_PAD_LEFT);
+                $data['animal_code'] ??= str_pad((string) $seq, 4, '0', STR_PAD_LEFT);
             }
         }
 
