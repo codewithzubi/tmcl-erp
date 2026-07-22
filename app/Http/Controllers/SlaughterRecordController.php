@@ -105,6 +105,10 @@ class SlaughterRecordController extends Controller
             'end_slaughter_at' => ['nullable', 'date'],
             'rejection_weight' => ['nullable', 'numeric', 'min:0'],
             'final_weight' => ['nullable', 'numeric', 'min:0'],
+            'chiller_transfer_qty' => ['nullable', 'numeric', 'min:0'],
+            'blast_freezer_transfer_qty' => ['nullable', 'numeric', 'min:0'],
+            'boti_transfer_qty' => ['nullable', 'numeric', 'min:0'],
+            'boneless_transfer_qty' => ['nullable', 'numeric', 'min:0'],
         ];
     }
 }

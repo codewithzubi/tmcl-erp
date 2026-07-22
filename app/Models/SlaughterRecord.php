@@ -13,6 +13,7 @@ class SlaughterRecord extends Model
         'final_product', 'planned_chiller', 'belt_attachment', 'carcass_type',
         'teeth', 'age', 'gender', 'specie', 'attachment_path',
         'end_slaughter_at', 'rejection_weight', 'final_weight',
+        'chiller_transfer_qty', 'blast_freezer_transfer_qty', 'boti_transfer_qty', 'boneless_transfer_qty',
     ];
 
     protected $casts = [
