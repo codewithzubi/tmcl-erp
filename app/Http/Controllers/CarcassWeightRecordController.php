@@ -35,12 +35,12 @@ class CarcassWeightRecordController extends Controller
         return $carcassWeightRecord->load('slaughterRecord');
     }
 
+    // "Locked" no longer blocks editing/deleting — a user who wants to
+    // unlock a finalized weight now does so simply by editing it (the Edit
+    // form clears the lock as part of saving; see the frontend's
+    // handleEditSubmit).
     public function update(Request $request, CarcassWeightRecord $carcassWeightRecord)
     {
-        if ($carcassWeightRecord->locked) {
-            abort(423, 'This carcass weight record is locked and cannot be edited.');
-        }
-
         $data = $request->validate($this->rules($carcassWeightRecord->id));
         $data = $this->applyQuarterSplit($data);
         $carcassWeightRecord->update($data);
@@ -51,10 +51,6 @@ class CarcassWeightRecordController extends Controller
 
     public function destroy(CarcassWeightRecord $carcassWeightRecord)
     {
-        if ($carcassWeightRecord->locked) {
-            abort(423, 'This carcass weight record is locked and cannot be deleted.');
-        }
-
         $this->logEvent('Carcass Weight', 'Carcass Weight', $carcassWeightRecord->id, 'Delete');
         $carcassWeightRecord->delete();
 
