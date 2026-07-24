@@ -79,6 +79,17 @@ class CarcassWeightRecordController extends Controller
         return $carcassWeightRecord;
     }
 
+    // Approval is its own workflow, independent of the weight-data lock —
+    // a locked (finalized) record must still be approvable, so this bypasses
+    // update()'s "locked records can't be edited" guard on purpose.
+    public function approve(CarcassWeightRecord $carcassWeightRecord)
+    {
+        $carcassWeightRecord->update(['supervisor_approval' => 'Approved']);
+        $this->logEvent('Carcass Weight', 'Carcass Weight', $carcassWeightRecord->id, 'Approve', 'Approved');
+
+        return $carcassWeightRecord;
+    }
+
     // Mirrors the scope document's business rule: hanging weight splits evenly
     // across the four quarters unless a manual override supplies actual values.
     private function applyQuarterSplit(array $data): array

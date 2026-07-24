@@ -109,6 +109,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('carcass-weight-records', CarcassWeightRecordController::class);
     Route::post('/carcass-weight-records/{carcass_weight_record}/lock', [CarcassWeightRecordController::class, 'lock']);
     Route::post('/carcass-weight-records/{carcass_weight_record}/unlock', [CarcassWeightRecordController::class, 'unlock']);
+    Route::post('/carcass-weight-records/{carcass_weight_record}/approve', [CarcassWeightRecordController::class, 'approve']);
     Route::apiResource('veterinary-inspections', VeterinaryInspectionController::class);
     Route::apiResource('meat-deductions', MeatDeductionController::class)->except('show');
 
