@@ -26,11 +26,14 @@ class SlaughterRecordController extends Controller
         if (empty($data['animal_code']) || empty($data['animal_sequence_number'])) {
             if (!empty($data['lot_id'])) {
                 $lot = \App\Models\Lot::find($data['lot_id']);
-                $seq = SlaughterRecord::where('lot_id', $data['lot_id'])->count() + 1;
+                // MAX(), not count() — count() drifts below the highest number
+                // ever assigned once any record has been deleted, producing a
+                // duplicate/already-used code instead of the true next one.
+                $seq = (SlaughterRecord::where('lot_id', $data['lot_id'])->max('animal_sequence_number') ?? 0) + 1;
                 $data['animal_sequence_number'] = $seq;
                 $data['animal_code'] ??= $lot->lot_code.'-'.str_pad((string) $seq, 3, '0', STR_PAD_LEFT);
             } else {
-                $seq = SlaughterRecord::count() + 1;
+                $seq = (SlaughterRecord::max('animal_sequence_number') ?? 0) + 1;
                 $data['animal_sequence_number'] = $seq;
                 $data['animal_code'] ??= str_pad((string) $seq, 4, '0', STR_PAD_LEFT);
             }
