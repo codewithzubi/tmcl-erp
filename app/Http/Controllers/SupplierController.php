@@ -59,12 +59,12 @@ class SupplierController extends Controller
     {
         return [
             'supplier_code' => ['nullable', 'string', 'max:255', Rule::unique('suppliers', 'supplier_code')->ignore($ignoreId)],
-            'supplier_type' => ['required', Rule::in(['Individual Farmer', 'Livestock Trader', 'Feedlot/Farm Company'])],
+            'supplier_type' => ['required', 'string', 'max:255'],
             'company_name' => ['nullable', 'string', 'max:255'],
             'supplier_name' => ['required', 'string', 'max:255'],
             'contact_person' => ['required', 'string', 'max:255'],
             'cnic_or_registration_no' => ['required', 'string', 'max:255'],
-            'mobile' => ['required', 'string', 'max:50'],
+            'mobile' => ['required', 'string', 'max:11', 'regex:/^[0-9]+$/'],
             'email' => ['required', 'email'],
             'address' => ['required', 'string'],
             'city' => ['nullable', 'string', 'max:255'],
