@@ -21,8 +21,10 @@ class SupplierAttachmentController extends Controller
             'supplier_id' => ['required', 'exists:suppliers,id'],
             'file_name' => ['required', 'string', 'max:255'],
             'file_type' => ['required', 'string', 'max:100'],
+            'description' => ['nullable', 'string'],
             'uploaded_by' => ['required', 'string', 'max:255'],
             'size_kb' => ['required', 'integer', 'min:0'],
+            'file_data' => ['nullable', 'string'],
         ]);
 
         return SupplierAttachment::create($data);
