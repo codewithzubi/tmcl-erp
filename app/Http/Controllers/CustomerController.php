@@ -63,7 +63,7 @@ class CustomerController extends Controller
             'contact_person' => ['required', 'string', 'max:255'],
             'designation' => ['nullable', 'string', 'max:255'],
             'email' => ['required', 'email'],
-            'mobile' => ['required', 'string', 'max:50'],
+            'mobile' => ['required', 'string', 'max:11', 'regex:/^[0-9]+$/'],
             'landline' => ['nullable', 'string', 'max:50'],
             'website' => ['nullable', 'string', 'max:255'],
             'industry_type' => ['required', 'string', 'max:255'],
