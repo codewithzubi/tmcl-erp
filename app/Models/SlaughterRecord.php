@@ -12,7 +12,7 @@ class SlaughterRecord extends Model
         'supplier_id', 'customer_id', 'agent', 'doctor', 'meat_checker', 'destination',
         'final_product', 'planned_chiller', 'belt_attachment', 'carcass_type',
         'teeth', 'age', 'gender', 'specie', 'attachment_path', 'attachment_type', 'attachment_data',
-        'end_slaughter_at', 'rejection_weight', 'final_weight',
+        'end_slaughter_at', 'rejection_weight', 'final_weight', 'custom_adjustments',
         'chiller_transfer_qty', 'blast_freezer_transfer_qty', 'boti_transfer_qty', 'boneless_transfer_qty',
     ];
 
@@ -20,6 +20,7 @@ class SlaughterRecord extends Model
         'slaughter_date' => 'date',
         'start_datetime' => 'datetime',
         'end_slaughter_at' => 'datetime',
+        'custom_adjustments' => 'array',
     ];
 
     public function lot()
