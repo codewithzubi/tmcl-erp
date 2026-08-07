@@ -19,6 +19,7 @@ class CustomerAttachmentController extends Controller
     {
         $data = $request->validate([
             'customer_id' => ['required', 'exists:customers,id'],
+            'title' => ['nullable', 'string', 'max:255'],
             'file_name' => ['required', 'string', 'max:255'],
             'file_type' => ['required', 'string', 'max:100'],
             'description' => ['nullable', 'string'],

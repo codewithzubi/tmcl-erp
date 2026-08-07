@@ -107,6 +107,8 @@ class SlaughterRecordController extends Controller
             'attachment_path' => ['nullable', 'string', 'max:255'],
             'attachment_type' => ['nullable', 'string', 'max:100'],
             'attachment_data' => ['nullable', 'string'],
+            'attachment_title' => ['nullable', 'string', 'max:255'],
+            'attachment_description' => ['nullable', 'string'],
             'end_slaughter_at' => ['nullable', 'date'],
             'rejection_weight' => ['nullable', 'numeric', 'min:0'],
             'final_weight' => ['nullable', 'numeric', 'min:0'],

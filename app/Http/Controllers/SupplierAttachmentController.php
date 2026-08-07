@@ -19,6 +19,7 @@ class SupplierAttachmentController extends Controller
     {
         $data = $request->validate([
             'supplier_id' => ['required', 'exists:suppliers,id'],
+            'title' => ['nullable', 'string', 'max:255'],
             'file_name' => ['required', 'string', 'max:255'],
             'file_type' => ['required', 'string', 'max:100'],
             'description' => ['nullable', 'string'],

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CustomerAttachment extends Model
 {
-    protected $fillable = ['customer_id', 'file_name', 'file_type', 'description', 'uploaded_by', 'size_kb', 'file_data'];
+    protected $fillable = ['customer_id', 'title', 'file_name', 'file_type', 'description', 'uploaded_by', 'size_kb', 'file_data'];
 
     public function customer()
     {
