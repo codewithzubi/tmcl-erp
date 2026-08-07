@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarnAllocationController;
 use App\Http\Controllers\BonelessProcessingRecordController;
 use App\Http\Controllers\BotiProcessingRecordController;
+use App\Http\Controllers\CarcassWeightPieceController;
 use App\Http\Controllers\CarcassWeightRecordController;
 use App\Http\Controllers\CartonController;
 use App\Http\Controllers\CustomerAttachmentController;
@@ -111,6 +112,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/carcass-weight-records/{carcass_weight_record}/lock', [CarcassWeightRecordController::class, 'lock']);
     Route::post('/carcass-weight-records/{carcass_weight_record}/unlock', [CarcassWeightRecordController::class, 'unlock']);
     Route::post('/carcass-weight-records/{carcass_weight_record}/approve', [CarcassWeightRecordController::class, 'approve']);
+    Route::get('/carcass-weight-pieces', [CarcassWeightPieceController::class, 'index']);
+    Route::post('/carcass-weight-pieces', [CarcassWeightPieceController::class, 'store']);
+    Route::put('/carcass-weight-pieces/{carcass_weight_piece}', [CarcassWeightPieceController::class, 'update']);
+    Route::delete('/carcass-weight-pieces/{carcass_weight_piece}', [CarcassWeightPieceController::class, 'destroy']);
     Route::apiResource('veterinary-inspections', VeterinaryInspectionController::class);
     Route::apiResource('meat-deductions', MeatDeductionController::class)->except('show');
 
