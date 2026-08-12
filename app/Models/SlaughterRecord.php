@@ -11,7 +11,7 @@ class SlaughterRecord extends Model
         'slaughter_date', 'start_datetime', 'slaughter_operator', 'processing_status', 'remarks',
         'supplier_id', 'customer_id', 'agent', 'doctor', 'meat_checker', 'destination',
         'final_product', 'planned_chiller', 'belt_attachment', 'carcass_type',
-        'teeth', 'age', 'gender', 'specie', 'attachment_path', 'attachment_type', 'attachment_data',
+        'teeth', 'age', 'gender', 'specie', 'breed', 'attachment_path', 'attachment_type', 'attachment_data',
         'attachment_title', 'attachment_description',
         'end_slaughter_at', 'rejection_weight', 'final_weight', 'custom_adjustments',
         'chiller_transfer_qty', 'blast_freezer_transfer_qty', 'boti_transfer_qty', 'boneless_transfer_qty',

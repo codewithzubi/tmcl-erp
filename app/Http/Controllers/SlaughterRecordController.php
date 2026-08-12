@@ -104,6 +104,7 @@ class SlaughterRecordController extends Controller
             'age' => ['nullable', 'string', 'max:255'],
             'gender' => ['nullable', 'string', 'max:255'],
             'specie' => ['nullable', 'string', 'max:255'],
+            'breed' => ['nullable', 'string', 'max:255'],
             'attachment_path' => ['nullable', 'string', 'max:255'],
             'attachment_type' => ['nullable', 'string', 'max:100'],
             'attachment_data' => ['nullable', 'string'],
