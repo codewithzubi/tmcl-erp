@@ -9,7 +9,7 @@ class SlaughterRecord extends Model
     protected $fillable = [
         'animal_code', 'lot_id', 'sales_order_number', 'animal_sequence_number',
         'slaughter_date', 'start_datetime', 'slaughter_operator', 'processing_status', 'remarks',
-        'supplier_id', 'customer_id', 'agent', 'doctor', 'meat_checker', 'destination',
+        'supplier_id', 'customer_id', 'customer_ids', 'agent', 'doctor', 'meat_checker', 'destination',
         'final_product', 'planned_chiller', 'belt_attachment', 'carcass_type',
         'teeth', 'age', 'gender', 'specie', 'breed', 'attachment_path', 'attachment_type', 'attachment_data',
         'attachment_title', 'attachment_description',
@@ -22,6 +22,7 @@ class SlaughterRecord extends Model
         'start_datetime' => 'datetime',
         'end_slaughter_at' => 'datetime',
         'custom_adjustments' => 'array',
+        'customer_ids' => 'array',
     ];
 
     public function lot()

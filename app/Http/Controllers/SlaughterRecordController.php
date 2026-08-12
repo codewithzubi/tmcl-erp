@@ -92,6 +92,8 @@ class SlaughterRecordController extends Controller
             'remarks' => ['nullable', 'string'],
             'supplier_id' => ['nullable', 'exists:suppliers,id'],
             'customer_id' => ['nullable', 'exists:customers,id'],
+            'customer_ids' => ['nullable', 'array'],
+            'customer_ids.*' => ['integer', 'exists:customers,id'],
             'agent' => ['nullable', 'string', 'max:255'],
             'doctor' => ['nullable', 'string', 'max:255'],
             'meat_checker' => ['nullable', 'string', 'max:255'],
