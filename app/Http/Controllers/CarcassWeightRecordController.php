@@ -125,6 +125,10 @@ class CarcassWeightRecordController extends Controller
             'hook_weight' => ['nullable', 'numeric', 'min:0'],
             'photo_path' => ['nullable', 'string', 'max:255'],
             'locked' => ['boolean'],
+            'customer_id' => ['nullable', 'exists:customers,id'],
+            'chiller_name' => ['nullable', 'string', 'max:255'],
+            'print_tags' => ['nullable', Rule::in(['Full Detail', 'Half Detail'])],
+            'cut_type' => ['nullable', Rule::in(['Quarter', 'Dual'])],
         ];
     }
 }
