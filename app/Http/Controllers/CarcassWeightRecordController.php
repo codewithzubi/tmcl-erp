@@ -130,6 +130,7 @@ class CarcassWeightRecordController extends Controller
             'print_tags' => ['nullable', Rule::in(['Full Detail', 'Half Detail'])],
             'cut_type' => ['nullable', Rule::in(['Quarter', 'Dual'])],
             'piece_customers' => ['nullable', 'array'],
+            'piece_chillers' => ['nullable', 'array'],
         ];
     }
 }

@@ -11,7 +11,7 @@ class CarcassWeightRecord extends Model
         'left_hind_quarter', 'right_hind_quarter', 'left_fore_quarter', 'right_fore_quarter',
         'manual_override', 'supervisor_approval', 'final_carcass_weight',
         'gender', 'specie', 'age', 'teeth', 'hook_weight', 'photo_path', 'locked',
-        'customer_id', 'chiller_name', 'print_tags', 'cut_type', 'piece_customers',
+        'customer_id', 'chiller_name', 'print_tags', 'cut_type', 'piece_customers', 'piece_chillers',
     ];
 
     protected $casts = [
@@ -19,6 +19,7 @@ class CarcassWeightRecord extends Model
         'manual_override' => 'boolean',
         'locked' => 'boolean',
         'piece_customers' => 'array',
+        'piece_chillers' => 'array',
     ];
 
     public function slaughterRecord()
