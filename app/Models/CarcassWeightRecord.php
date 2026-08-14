@@ -10,7 +10,7 @@ class CarcassWeightRecord extends Model
         'slaughter_record_id', 'carcass_animal_id', 'hanging_weight', 'weight_date_time', 'scale_id',
         'left_hind_quarter', 'right_hind_quarter', 'left_fore_quarter', 'right_fore_quarter',
         'manual_override', 'supervisor_approval', 'final_carcass_weight',
-        'gender', 'specie', 'age', 'teeth', 'hook_weight', 'photo_path', 'locked',
+        'gender', 'specie', 'breed', 'age', 'teeth', 'hook_weight', 'photo_path', 'locked',
         'customer_id', 'chiller_name', 'print_tags', 'cut_type', 'piece_customers', 'piece_chillers',
         'piece_photos',
     ];

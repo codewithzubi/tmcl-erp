@@ -120,6 +120,7 @@ class CarcassWeightRecordController extends Controller
             'final_carcass_weight' => ['nullable', 'numeric', 'min:0'],
             'gender' => ['nullable', 'string', 'max:255'],
             'specie' => ['nullable', 'string', 'max:255'],
+            'breed' => ['nullable', 'string', 'max:255'],
             'age' => ['nullable', 'string', 'max:255'],
             'teeth' => ['nullable', 'string', 'max:255'],
             'hook_weight' => ['nullable', 'numeric', 'min:0'],
