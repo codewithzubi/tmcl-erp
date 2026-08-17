@@ -52,6 +52,9 @@ class ExportEntryController extends Controller
             'remarks' => ['nullable', 'string'],
             'export_mode' => ['required', Rule::in(['Air', 'Sea', 'Road'])],
             'mode_details' => ['nullable', 'array'],
+            'tag_allocations' => ['nullable', 'array'],
+            'tag_allocations.*.tag_id' => ['required_with:tag_allocations', 'string', 'max:255'],
+            'tag_allocations.*.weight' => ['required_with:tag_allocations', 'numeric', 'min:0'],
         ];
     }
 }
