@@ -14,6 +14,7 @@ use App\Http\Controllers\CustomerDiscussionNoteController;
 use App\Http\Controllers\CustomerPurchaseOrderController;
 use App\Http\Controllers\CustomFieldDefinitionController;
 use App\Http\Controllers\BreedController;
+use App\Http\Controllers\SpecieController;
 use App\Http\Controllers\CustomFieldValueController;
 use App\Http\Controllers\DispatchController;
 use App\Http\Controllers\DutyRosterController;
@@ -69,6 +70,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllRead']);
     Route::apiResource('custom-field-definitions', CustomFieldDefinitionController::class);
     Route::apiResource('breeds', BreedController::class);
+    Route::apiResource('species', SpecieController::class);
     Route::get('/custom-field-values', [CustomFieldValueController::class, 'index']);
     Route::put('/custom-field-values', [CustomFieldValueController::class, 'upsert']);
     Route::apiResource('shifts', ShiftController::class);
