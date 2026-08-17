@@ -17,6 +17,7 @@ use App\Http\Controllers\BreedController;
 use App\Http\Controllers\SpecieController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\MeatTransferEntryController;
+use App\Http\Controllers\ExportEntryController;
 use App\Http\Controllers\CustomFieldValueController;
 use App\Http\Controllers\DispatchController;
 use App\Http\Controllers\DutyRosterController;
@@ -75,6 +76,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('species', SpecieController::class);
     Route::apiResource('genders', GenderController::class);
     Route::apiResource('meat-transfer-entries', MeatTransferEntryController::class)->only(['index', 'store', 'destroy']);
+    Route::apiResource('export-entries', ExportEntryController::class)->only(['index', 'store', 'destroy']);
     Route::get('/custom-field-values', [CustomFieldValueController::class, 'index']);
     Route::put('/custom-field-values', [CustomFieldValueController::class, 'upsert']);
     Route::apiResource('shifts', ShiftController::class);
