@@ -42,6 +42,7 @@ use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\ShipmentController;
 use App\Http\Controllers\SlaughterRecordController;
+use App\Http\Controllers\SlaughteringReportEntryController;
 use App\Http\Controllers\StorageSessionController;
 use App\Http\Controllers\StorageUnitController;
 use App\Http\Controllers\SupplierAttachmentController;
@@ -128,6 +129,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/carcass-weight-pieces/{carcass_weight_piece}', [CarcassWeightPieceController::class, 'destroy']);
     Route::apiResource('veterinary-inspections', VeterinaryInspectionController::class);
     Route::apiResource('meat-deductions', MeatDeductionController::class)->except('show');
+    Route::apiResource('slaughtering-report-entries', SlaughteringReportEntryController::class)->except('show');
 
     // Settlement & Allocation
     Route::apiResource('supplier-settlements', SupplierSettlementController::class);
