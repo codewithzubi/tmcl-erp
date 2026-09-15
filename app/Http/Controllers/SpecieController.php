@@ -19,22 +19,22 @@ class SpecieController extends Controller
         return Specie::create($data);
     }
 
-    public function show(Specie $specie)
+    public function show(Specie $species)
     {
-        return $specie;
+        return $species;
     }
 
-    public function update(Request $request, Specie $specie)
+    public function update(Request $request, Specie $species)
     {
         $data = $request->validate($this->rules());
-        $specie->update($data);
+        $species->update($data);
 
-        return $specie;
+        return $species;
     }
 
-    public function destroy(Specie $specie)
+    public function destroy(Specie $species)
     {
-        $specie->delete();
+        $species->delete();
 
         return response()->noContent();
     }
