@@ -35,7 +35,13 @@ class SlaughterRecordController extends Controller
             } else {
                 $seq = (SlaughterRecord::max('animal_sequence_number') ?? 0) + 1;
                 $data['animal_sequence_number'] = $seq;
-                $data['animal_code'] ??= str_pad((string) $seq, 4, '0', STR_PAD_LEFT);
+                // DATE/BELT/SERIAL.NO — e.g. "16-sep-26/Belt-1/001". Serial
+                // keeps incrementing globally (not reset per day/belt), same
+                // as the plain sequence number this format replaced.
+                $date = \Carbon\Carbon::parse($data['slaughter_date'])->format('d-M-y');
+                $belt = $data['belt_attachment'] ?? 'NOBELT';
+                $serial = str_pad((string) $seq, 3, '0', STR_PAD_LEFT);
+                $data['animal_code'] ??= strtolower($date).'/'.$belt.'/'.$serial;
             }
         }
 
