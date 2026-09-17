@@ -97,6 +97,8 @@ class SlaughterRecordController extends Controller
             'processing_status' => ['required', Rule::in(['In Progress', 'Completed'])],
             'remarks' => ['nullable', 'string'],
             'supplier_id' => ['nullable', 'exists:suppliers,id'],
+            'supplier_ids' => ['nullable', 'array'],
+            'supplier_ids.*' => ['integer', 'exists:suppliers,id'],
             'customer_id' => ['nullable', 'exists:customers,id'],
             'customer_ids' => ['nullable', 'array'],
             'customer_ids.*' => ['integer', 'exists:customers,id'],
