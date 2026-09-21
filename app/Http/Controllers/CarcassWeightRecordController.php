@@ -128,10 +128,13 @@ class CarcassWeightRecordController extends Controller
             'locked' => ['boolean'],
             'customer_id' => ['nullable', 'exists:customers,id'],
             'chiller_name' => ['nullable', 'string', 'max:255'],
+            'blast_freezer_name' => ['nullable', 'string', 'max:255'],
             'print_tags' => ['nullable', Rule::in(['Full Detail', 'Half Detail'])],
             'cut_type' => ['nullable', Rule::in(['Quarter', 'Dual', 'Full Carcass'])],
             'piece_customers' => ['nullable', 'array'],
+            'piece_suppliers' => ['nullable', 'array'],
             'piece_chillers' => ['nullable', 'array'],
+            'piece_blast_freezers' => ['nullable', 'array'],
             'piece_photos' => ['nullable', 'array'],
         ];
     }

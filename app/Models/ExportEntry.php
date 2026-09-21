@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ExportEntry extends Model
 {
     protected $fillable = [
-        'slaughter_record_id', 'chiller_name', 'chiller_out_time', 'export_date_time',
+        'slaughter_record_id', 'chiller_name', 'blast_freezer_name', 'chiller_out_time', 'export_date_time',
         'export_quantity', 'destination_country', 'destination_consignee', 'customer_buyer',
         'forwarder_name', 'export_reference', 'remarks', 'export_mode', 'mode_details', 'tag_allocations',
     ];
