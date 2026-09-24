@@ -127,6 +127,7 @@ class CarcassWeightRecordController extends Controller
             'photo_path' => ['nullable', 'string', 'max:255'],
             'locked' => ['boolean'],
             'customer_id' => ['nullable', 'exists:customers,id'],
+            'supplier_id' => ['nullable', 'exists:suppliers,id'],
             'chiller_name' => ['nullable', 'string', 'max:255'],
             'blast_freezer_name' => ['nullable', 'string', 'max:255'],
             'print_tags' => ['nullable', Rule::in(['Full Detail', 'Half Detail'])],

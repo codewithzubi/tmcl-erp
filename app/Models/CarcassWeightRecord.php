@@ -11,7 +11,7 @@ class CarcassWeightRecord extends Model
         'left_hind_quarter', 'right_hind_quarter', 'left_fore_quarter', 'right_fore_quarter',
         'manual_override', 'supervisor_approval', 'final_carcass_weight',
         'gender', 'specie', 'breed', 'age', 'teeth', 'hook_weight', 'photo_path', 'locked',
-        'customer_id', 'chiller_name', 'blast_freezer_name', 'print_tags', 'cut_type',
+        'customer_id', 'supplier_id', 'chiller_name', 'blast_freezer_name', 'print_tags', 'cut_type',
         'piece_customers', 'piece_suppliers', 'piece_chillers', 'piece_blast_freezers', 'piece_photos',
     ];
 
