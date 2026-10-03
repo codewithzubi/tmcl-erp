@@ -49,16 +49,16 @@ class LivestockInspectionController extends Controller
         return [
             'inspection_number' => ['nullable', 'string', 'max:255', Rule::unique('livestock_inspections', 'inspection_number')->ignore($ignoreId)],
             'grn_id' => ['required', 'exists:grns,id'],
-            'veterinary_officer' => ['required', 'string', 'max:255'],
-            'inspection_date' => ['required', 'date'],
-            'animal_health_status' => ['required', Rule::in(['Healthy', 'Sick', 'Injured', 'Under Observation'])],
+            'veterinary_officer' => ['nullable', 'string', 'max:255'],
+            'inspection_date' => ['nullable', 'date'],
+            'animal_health_status' => ['nullable', Rule::in(['Healthy', 'Sick', 'Injured', 'Under Observation'])],
             'disease_symptoms' => ['nullable', 'string'],
-            'physical_condition' => ['required', Rule::in(['Good', 'Fair', 'Poor'])],
-            'body_weight_verification' => ['required', 'numeric', 'min:0'],
-            'temperature' => ['required', 'numeric'],
+            'physical_condition' => ['nullable', Rule::in(['Good', 'Fair', 'Poor'])],
+            'body_weight_verification' => ['nullable', 'numeric', 'min:0'],
+            'temperature' => ['nullable', 'numeric'],
             'quarantine_required' => ['boolean'],
             'inspection_remarks' => ['nullable', 'string'],
-            'final_decision' => ['required', Rule::in(['Accept', 'Reject'])],
+            'final_decision' => ['nullable', Rule::in(['Accept', 'Reject'])],
         ];
     }
 }

@@ -46,18 +46,18 @@ class SalesOrderController extends Controller
     private function rules(?int $ignoreId = null): array
     {
         return [
-            'sales_order_number' => ['required', 'string', 'max:255', Rule::unique('sales_orders', 'sales_order_number')->ignore($ignoreId)],
+            'sales_order_number' => ['nullable', 'string', 'max:255', Rule::unique('sales_orders', 'sales_order_number')->ignore($ignoreId)],
             'customer_id' => ['required', 'exists:customers,id'],
             'linked_proposal_id' => ['nullable', 'exists:proposals,id'],
             'linked_purchase_order_id' => ['nullable', 'exists:customer_purchase_orders,id'],
-            'order_date' => ['required', 'date'],
-            'order_value' => ['required', 'numeric', 'min:0'],
-            'approval_status' => ['required', Rule::in(['Pending', 'Approved', 'Rejected'])],
-            'production_status' => ['required', Rule::in(['Not Started', 'In Progress', 'Completed'])],
-            'logistics_status' => ['required', 'string', 'max:255'],
-            'invoice_status' => ['required', Rule::in(['Not Invoiced', 'Partially Invoiced', 'Invoiced'])],
-            'payment_status' => ['required', Rule::in(['Unpaid', 'Partially Paid', 'Paid'])],
-            'overall_status' => ['required', Rule::in(['Open', 'In Progress', 'Completed', 'Cancelled'])],
+            'order_date' => ['nullable', 'date'],
+            'order_value' => ['nullable', 'numeric', 'min:0'],
+            'approval_status' => ['nullable', Rule::in(['Pending', 'Approved', 'Rejected'])],
+            'production_status' => ['nullable', Rule::in(['Not Started', 'In Progress', 'Completed'])],
+            'logistics_status' => ['nullable', 'string', 'max:255'],
+            'invoice_status' => ['nullable', Rule::in(['Not Invoiced', 'Partially Invoiced', 'Invoiced'])],
+            'payment_status' => ['nullable', Rule::in(['Unpaid', 'Partially Paid', 'Paid'])],
+            'overall_status' => ['nullable', Rule::in(['Open', 'In Progress', 'Completed', 'Cancelled'])],
         ];
     }
 }

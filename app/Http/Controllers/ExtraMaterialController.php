@@ -42,8 +42,8 @@ class ExtraMaterialController extends Controller
     private function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
-            'cost' => ['required', 'numeric', 'min:0'],
+            'title' => ['nullable', 'string', 'max:255'],
+            'cost' => ['nullable', 'numeric', 'min:0'],
         ];
     }
 }

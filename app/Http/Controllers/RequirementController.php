@@ -49,13 +49,13 @@ class RequirementController extends Controller
         return [
             'requirement_code' => ['nullable', 'string', 'max:255', Rule::unique('requirements', 'requirement_code')->ignore($ignoreId)],
             'customer_id' => ['required', 'exists:customers,id'],
-            'product_type' => ['required', 'string', 'max:255'],
-            'product_specifications' => ['required', 'string'],
-            'quantity' => ['required', 'numeric', 'min:0'],
-            'unit_of_measure' => ['required', 'string', 'max:50'],
-            'packaging_requirement' => ['required', 'string', 'max:255'],
-            'delivery_location' => ['required', 'string', 'max:255'],
-            'expected_delivery_date' => ['required', 'date'],
+            'product_type' => ['nullable', 'string', 'max:255'],
+            'product_specifications' => ['nullable', 'string'],
+            'quantity' => ['nullable', 'numeric', 'min:0'],
+            'unit_of_measure' => ['nullable', 'string', 'max:50'],
+            'packaging_requirement' => ['nullable', 'string', 'max:255'],
+            'delivery_location' => ['nullable', 'string', 'max:255'],
+            'expected_delivery_date' => ['nullable', 'date'],
             'additional_notes' => ['nullable', 'string'],
         ];
     }

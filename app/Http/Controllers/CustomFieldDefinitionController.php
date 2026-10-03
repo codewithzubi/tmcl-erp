@@ -45,17 +45,17 @@ class CustomFieldDefinitionController extends Controller
     private function rules(?int $ignoreId = null): array
     {
         return [
-            'module' => ['required', 'string', 'max:255'],
+            'module' => ['nullable', 'string', 'max:255'],
             'field_key' => [
-                'required', 'string', 'max:255',
+                'nullable', 'string', 'max:255',
                 Rule::unique('custom_field_definitions', 'field_key')->where(fn ($q) => $q->where('module', request('module')))->ignore($ignoreId),
             ],
-            'label' => ['required', 'string', 'max:255'],
-            'field_type' => ['required', Rule::in(['text', 'number', 'date', 'select', 'checkbox', 'textarea'])],
+            'label' => ['nullable', 'string', 'max:255'],
+            'field_type' => ['nullable', Rule::in(['text', 'number', 'date', 'select', 'checkbox', 'textarea'])],
             'options' => ['nullable', 'array'],
             'required' => ['boolean'],
             'sort_order' => ['nullable', 'integer'],
-            'status' => ['required', Rule::in(['Active', 'Inactive'])],
+            'status' => ['nullable', Rule::in(['Active', 'Inactive'])],
         ];
     }
 }

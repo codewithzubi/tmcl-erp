@@ -72,11 +72,11 @@ class StorageSessionController extends Controller
             'session_number' => ['nullable', 'string', 'max:255', Rule::unique('storage_sessions', 'session_number')->ignore($ignoreId)],
             'storage_unit_id' => ['required', 'exists:storage_units,id'],
             'lot_id' => ['required', 'exists:lots,id'],
-            'product_weight' => ['required', 'numeric', 'min:0'],
-            'time_in' => ['required', 'date'],
+            'product_weight' => ['nullable', 'numeric', 'min:0'],
+            'time_in' => ['nullable', 'date'],
             'time_out' => ['nullable', 'date'],
             'planned_duration_hours' => ['nullable', 'integer', 'min:0'],
-            'status' => ['required', Rule::in(['Active', 'Completed'])],
+            'status' => ['nullable', Rule::in(['Active', 'Completed'])],
         ];
     }
 }

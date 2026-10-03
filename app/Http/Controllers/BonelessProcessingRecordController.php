@@ -50,12 +50,12 @@ class BonelessProcessingRecordController extends Controller
             'processing_number' => ['nullable', 'string', 'max:255', Rule::unique('boneless_processing_records', 'processing_number')->ignore($ignoreId)],
             'lot_id' => ['required', 'exists:lots,id'],
             'slaughter_record_id' => ['required', 'exists:slaughter_records,id'],
-            'processing_date' => ['required', 'date'],
-            'input_weight' => ['required', 'numeric', 'min:0'],
-            'boneless_weight' => ['required', 'numeric', 'min:0'],
-            'bone_weight' => ['required', 'numeric', 'min:0'],
-            'operator' => ['required', 'string', 'max:255'],
-            'status' => ['required', Rule::in(['In Progress', 'Completed'])],
+            'processing_date' => ['nullable', 'date'],
+            'input_weight' => ['nullable', 'numeric', 'min:0'],
+            'boneless_weight' => ['nullable', 'numeric', 'min:0'],
+            'bone_weight' => ['nullable', 'numeric', 'min:0'],
+            'operator' => ['nullable', 'string', 'max:255'],
+            'status' => ['nullable', Rule::in(['In Progress', 'Completed'])],
         ];
     }
 }

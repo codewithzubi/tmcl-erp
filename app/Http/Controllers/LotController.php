@@ -49,9 +49,9 @@ class LotController extends Controller
     public function hold(Request $request, Lot $lot)
     {
         $data = $request->validate([
-            'hold_reason' => ['required', 'string'],
-            'required_remaining_weight' => ['required', 'numeric', 'min:0'],
-            'additional_animals_required' => ['required', 'integer', 'min:0'],
+            'hold_reason' => ['nullable', 'string'],
+            'required_remaining_weight' => ['nullable', 'numeric', 'min:0'],
+            'additional_animals_required' => ['nullable', 'integer', 'min:0'],
         ]);
 
         $lot->update([...$data, 'status' => 'Hold']);
@@ -89,14 +89,14 @@ class LotController extends Controller
             'grn_id' => ['required', 'exists:grns,id'],
             'barn_allocation_id' => ['nullable', 'exists:barn_allocations,id'],
             'batch_number' => ['nullable', 'string', 'max:255'],
-            'livestock_type' => ['required', 'string', 'max:255'],
-            'number_of_animals' => ['required', 'integer', 'min:0'],
-            'total_live_weight' => ['required', 'numeric', 'min:0'],
-            'allocation_date' => ['required', 'date'],
-            'created_by' => ['required', 'string', 'max:255'],
+            'livestock_type' => ['nullable', 'string', 'max:255'],
+            'number_of_animals' => ['nullable', 'integer', 'min:0'],
+            'total_live_weight' => ['nullable', 'numeric', 'min:0'],
+            'allocation_date' => ['nullable', 'date'],
+            'created_by' => ['nullable', 'string', 'max:255'],
             'status' => ['nullable', Rule::in(['Open', 'Hold', 'Completed'])],
             'remarks' => ['nullable', 'string'],
-            'supplier_committed_weight' => ['required', 'numeric', 'min:0'],
+            'supplier_committed_weight' => ['nullable', 'numeric', 'min:0'],
         ];
     }
 }

@@ -47,12 +47,12 @@ class MeatDeductionController extends Controller
     {
         return [
             'slaughter_record_id' => ['required', 'exists:slaughter_records,id'],
-            'deduction_type' => ['required', Rule::in(['Partial', 'Full'])],
-            'rejected_portion' => ['required', Rule::in(['Fore Quarter', 'Hind Quarter', 'Full Carcass', 'Other'])],
-            'rejected_weight' => ['required', 'numeric', 'min:0'],
-            'reason' => ['required', 'string', 'max:255'],
+            'deduction_type' => ['nullable', Rule::in(['Partial', 'Full'])],
+            'rejected_portion' => ['nullable', Rule::in(['Fore Quarter', 'Hind Quarter', 'Full Carcass', 'Other'])],
+            'rejected_weight' => ['nullable', 'numeric', 'min:0'],
+            'reason' => ['nullable', 'string', 'max:255'],
             'remarks' => ['nullable', 'string'],
-            'approved_by' => ['required', 'string', 'max:255'],
+            'approved_by' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

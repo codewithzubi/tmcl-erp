@@ -16,11 +16,11 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:roles,name'],
+            'name' => ['nullable', 'string', 'max:255', 'unique:roles,name'],
             'display_name' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'permissions' => ['nullable', 'array'],
-            'status' => ['required', Rule::in(['Active', 'Inactive'])],
+            'status' => ['nullable', Rule::in(['Active', 'Inactive'])],
         ]);
 
         return Role::create($data);
@@ -34,11 +34,11 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:255', Rule::unique('roles', 'name')->ignore($role->id)],
+            'name' => ['nullable', 'string', 'max:255', Rule::unique('roles', 'name')->ignore($role->id)],
             'display_name' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'permissions' => ['nullable', 'array'],
-            'status' => ['required', Rule::in(['Active', 'Inactive'])],
+            'status' => ['nullable', Rule::in(['Active', 'Inactive'])],
         ]);
 
         $role->update($data);

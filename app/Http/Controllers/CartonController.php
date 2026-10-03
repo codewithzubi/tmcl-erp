@@ -52,12 +52,12 @@ class CartonController extends Controller
         return [
             'carton_number' => ['nullable', 'string', 'max:255', Rule::unique('cartons', 'carton_number')->ignore($ignoreId)],
             'lot_id' => ['required', 'exists:lots,id'],
-            'number_of_packets' => ['required', 'integer', 'min:0'],
-            'carton_weight_kg' => ['required', 'numeric', 'min:0'],
-            'packaging_material' => ['required', 'string', 'max:255'],
+            'number_of_packets' => ['nullable', 'integer', 'min:0'],
+            'carton_weight_kg' => ['nullable', 'numeric', 'min:0'],
+            'packaging_material' => ['nullable', 'string', 'max:255'],
             'barcode' => ['nullable', 'string', 'max:255', Rule::unique('cartons', 'barcode')->ignore($ignoreId)],
             'label_printed' => ['boolean'],
-            'status' => ['required', Rule::in(['Open', 'Sealed', 'Dispatched'])],
+            'status' => ['nullable', Rule::in(['Open', 'Sealed', 'Dispatched'])],
         ];
     }
 }

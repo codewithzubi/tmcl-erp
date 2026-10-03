@@ -49,21 +49,21 @@ class GateEntryController extends Controller
     {
         return [
             'gate_entry_number' => ['nullable', 'string', 'max:255', Rule::unique('gate_entries', 'gate_entry_number')->ignore($ignoreId)],
-            'entry_date_time' => ['required', 'date'],
-            'entry_type' => ['required', Rule::in(['Supplier Delivery', 'Visitor', 'Vehicle Return', 'Other'])],
+            'entry_date_time' => ['nullable', 'date'],
+            'entry_type' => ['nullable', Rule::in(['Supplier Delivery', 'Visitor', 'Vehicle Return', 'Other'])],
             'visitor_name' => ['nullable', 'string', 'max:255'],
             'supplier_id' => ['nullable', 'exists:suppliers,id'],
-            'driver_name' => ['required', 'string', 'max:255'],
-            'driver_cnic' => ['required', 'string', 'max:255'],
-            'vehicle_registration_number' => ['required', 'string', 'max:255'],
-            'vehicle_type' => ['required', Rule::in(['Truck', 'Container Truck', 'Pickup', 'Trailer', 'Other'])],
+            'driver_name' => ['nullable', 'string', 'max:255'],
+            'driver_cnic' => ['nullable', 'string', 'max:255'],
+            'vehicle_registration_number' => ['nullable', 'string', 'max:255'],
+            'vehicle_type' => ['nullable', Rule::in(['Truck', 'Container Truck', 'Pickup', 'Trailer', 'Other'])],
             'trailer_number' => ['nullable', 'string', 'max:255'],
             'number_of_animals' => ['nullable', 'integer', 'min:0'],
             'estimated_weight' => ['nullable', 'numeric', 'min:0'],
-            'security_officer' => ['required', 'string', 'max:255'],
-            'purpose_of_visit' => ['required', Rule::in(['Livestock Delivery', 'Inspection', 'Meeting', 'Maintenance', 'Other'])],
+            'security_officer' => ['nullable', 'string', 'max:255'],
+            'purpose_of_visit' => ['nullable', Rule::in(['Livestock Delivery', 'Inspection', 'Meeting', 'Maintenance', 'Other'])],
             'remarks' => ['nullable', 'string'],
-            'approval_status' => ['required', Rule::in(['Pending', 'Approved', 'Rejected'])],
+            'approval_status' => ['nullable', Rule::in(['Pending', 'Approved', 'Rejected'])],
         ];
     }
 }

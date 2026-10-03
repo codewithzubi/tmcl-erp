@@ -23,10 +23,10 @@ class EventLogController extends Controller
         $data = $request->validate([
             'user_id' => ['nullable', 'exists:users,id'],
             'role' => ['nullable', 'string'],
-            'module' => ['required', 'string'],
-            'screen' => ['required', 'string'],
+            'module' => ['nullable', 'string'],
+            'screen' => ['nullable', 'string'],
             'record_id' => ['nullable', 'string'],
-            'action' => ['required', Rule::in(['Create', 'Update', 'Delete', 'Approve', 'Reject', 'Login', 'Logout'])],
+            'action' => ['nullable', Rule::in(['Create', 'Update', 'Delete', 'Approve', 'Reject', 'Login', 'Logout'])],
             'new_value' => ['nullable', 'string'],
             'ip_address' => ['nullable', 'string'],
             'device_info' => ['nullable', 'string'],

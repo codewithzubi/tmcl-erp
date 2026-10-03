@@ -59,10 +59,10 @@ class MeatAllocationController extends Controller
             'customer_id' => ['nullable', 'exists:customers,id'],
             'sales_order_id' => ['nullable', 'exists:sales_orders,id'],
             'lot_id' => ['required', 'exists:lots,id'],
-            'product_type' => ['required', Rule::in(['Full Carcass', 'Boneless', 'Boti'])],
-            'quantity' => ['required', 'numeric', 'min:0'],
-            'allocation_date' => ['required', 'date'],
-            'status' => ['required', Rule::in(['Pending', 'Routed', 'Completed'])],
+            'product_type' => ['nullable', Rule::in(['Full Carcass', 'Boneless', 'Boti'])],
+            'quantity' => ['nullable', 'numeric', 'min:0'],
+            'allocation_date' => ['nullable', 'date'],
+            'status' => ['nullable', Rule::in(['Pending', 'Routed', 'Completed'])],
         ];
     }
 }

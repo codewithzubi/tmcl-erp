@@ -38,9 +38,9 @@ class SlaughteringReportEntryController extends Controller
     {
         return [
             'slaughter_record_id' => ['required', 'exists:slaughter_records,id'],
-            'dual_pcs' => ['required', 'integer', 'min:0'],
-            'quarter_pcs' => ['required', 'integer', 'min:0'],
-            'total_gross_weight' => ['required', 'numeric', 'min:0'],
+            'dual_pcs' => ['nullable', 'integer', 'min:0'],
+            'quarter_pcs' => ['nullable', 'integer', 'min:0'],
+            'total_gross_weight' => ['nullable', 'numeric', 'min:0'],
             'live_weight' => ['nullable', 'numeric', 'min:0'],
             'freight' => ['nullable', 'string', 'max:255'],
         ];

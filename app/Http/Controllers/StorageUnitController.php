@@ -47,15 +47,15 @@ class StorageUnitController extends Controller
     private function rules(?int $ignoreId = null): array
     {
         return [
-            'unit_code' => ['required', 'string', 'max:255', Rule::unique('storage_units', 'unit_code')->ignore($ignoreId)],
-            'name' => ['required', 'string', 'max:255'],
-            'type' => ['required', Rule::in(['Chiller', 'Blast Freezer', 'Freezer'])],
-            'capacity_kg' => ['required', 'numeric', 'min:0'],
+            'unit_code' => ['nullable', 'string', 'max:255', Rule::unique('storage_units', 'unit_code')->ignore($ignoreId)],
+            'name' => ['nullable', 'string', 'max:255'],
+            'type' => ['nullable', Rule::in(['Chiller', 'Blast Freezer', 'Freezer'])],
+            'capacity_kg' => ['nullable', 'numeric', 'min:0'],
             'occupied_kg' => ['nullable', 'numeric', 'min:0'],
-            'min_temp' => ['required', 'numeric'],
-            'max_temp' => ['required', 'numeric'],
-            'target_temp' => ['required', 'numeric'],
-            'status' => ['required', Rule::in(['Active', 'Inactive'])],
+            'min_temp' => ['nullable', 'numeric'],
+            'max_temp' => ['nullable', 'numeric'],
+            'target_temp' => ['nullable', 'numeric'],
+            'status' => ['nullable', Rule::in(['Active', 'Inactive'])],
         ];
     }
 }

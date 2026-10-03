@@ -49,13 +49,13 @@ class PacketController extends Controller
         return [
             'packet_number' => ['nullable', 'string', 'max:255', Rule::unique('packets', 'packet_number')->ignore($ignoreId)],
             'lot_id' => ['required', 'exists:lots,id'],
-            'product_type' => ['required', Rule::in(['Full Carcass', 'Boneless', 'Boti'])],
-            'packet_size_kg' => ['required', 'numeric', 'min:0'],
-            'number_of_packets' => ['required', 'integer', 'min:0'],
-            'weight_per_packet_kg' => ['required', 'numeric', 'min:0'],
-            'packaging_material' => ['required', 'string', 'max:255'],
-            'packed_by' => ['required', 'string', 'max:255'],
-            'packing_date' => ['required', 'date'],
+            'product_type' => ['nullable', Rule::in(['Full Carcass', 'Boneless', 'Boti'])],
+            'packet_size_kg' => ['nullable', 'numeric', 'min:0'],
+            'number_of_packets' => ['nullable', 'integer', 'min:0'],
+            'weight_per_packet_kg' => ['nullable', 'numeric', 'min:0'],
+            'packaging_material' => ['nullable', 'string', 'max:255'],
+            'packed_by' => ['nullable', 'string', 'max:255'],
+            'packing_date' => ['nullable', 'date'],
         ];
     }
 }

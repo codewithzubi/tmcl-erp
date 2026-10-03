@@ -32,6 +32,7 @@ use App\Http\Controllers\LotController;
 use App\Http\Controllers\MeatAllocationController;
 use App\Http\Controllers\MeatDeductionController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\OffalCollectorController;
 use App\Http\Controllers\OffalRecoveryController;
 use App\Http\Controllers\OffalSettlementController;
 use App\Http\Controllers\PacketController;
@@ -80,6 +81,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('extra-materials', ExtraMaterialController::class);
     Route::apiResource('species', SpecieController::class);
     Route::apiResource('genders', GenderController::class);
+    Route::apiResource('offal-collectors', OffalCollectorController::class);
     Route::apiResource('meat-transfer-entries', MeatTransferEntryController::class)->only(['index', 'store', 'destroy']);
     Route::apiResource('export-entries', ExportEntryController::class)->only(['index', 'store', 'destroy']);
     Route::get('/custom-field-values', [CustomFieldValueController::class, 'index']);

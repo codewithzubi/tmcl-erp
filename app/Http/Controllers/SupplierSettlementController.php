@@ -53,12 +53,12 @@ class SupplierSettlementController extends Controller
             'settlement_number' => ['nullable', 'string', 'max:255', Rule::unique('supplier_settlements', 'settlement_number')->ignore($ignoreId)],
             'supplier_id' => ['required', 'exists:suppliers,id'],
             'lot_id' => ['required', 'exists:lots,id'],
-            'agreed_rate_per_kg' => ['required', 'numeric', 'min:0'],
-            'approved_meat_weight' => ['required', 'numeric', 'min:0'],
-            'payment_method' => ['required', Rule::in(['Bank Transfer', 'Cash', 'Cheque'])],
+            'agreed_rate_per_kg' => ['nullable', 'numeric', 'min:0'],
+            'approved_meat_weight' => ['nullable', 'numeric', 'min:0'],
+            'payment_method' => ['nullable', Rule::in(['Bank Transfer', 'Cash', 'Cheque'])],
             'payment_date' => ['nullable', 'date'],
-            'settlement_status' => ['required', Rule::in(['Pending', 'Approved', 'Paid'])],
-            'approved_by' => ['required', 'string', 'max:255'],
+            'settlement_status' => ['nullable', Rule::in(['Pending', 'Approved', 'Paid'])],
+            'approved_by' => ['nullable', 'string', 'max:255'],
             'remarks' => ['nullable', 'string'],
         ];
     }

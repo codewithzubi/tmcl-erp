@@ -16,13 +16,13 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['nullable', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:users,username'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'string', 'min:6'],
             'role_id' => ['nullable', 'exists:roles,id'],
             'department' => ['nullable', 'string', 'max:255'],
-            'status' => ['required', Rule::in(['Active', 'Inactive'])],
+            'status' => ['nullable', Rule::in(['Active', 'Inactive'])],
             'phone' => ['nullable', 'string', 'max:50'],
             'gender' => ['nullable', Rule::in(['Male', 'Female', 'Other'])],
             'picture' => ['nullable', 'string'],
@@ -41,13 +41,13 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['nullable', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', Rule::unique('users', 'username')->ignore($user->id)],
             'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
             'password' => ['nullable', 'string', 'min:6'],
             'role_id' => ['nullable', 'exists:roles,id'],
             'department' => ['nullable', 'string', 'max:255'],
-            'status' => ['required', Rule::in(['Active', 'Inactive'])],
+            'status' => ['nullable', Rule::in(['Active', 'Inactive'])],
             'phone' => ['nullable', 'string', 'max:50'],
             'gender' => ['nullable', Rule::in(['Male', 'Female', 'Other'])],
             'picture' => ['nullable', 'string'],

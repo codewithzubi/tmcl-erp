@@ -49,9 +49,9 @@ class VeterinaryInspectionController extends Controller
         return [
             'inspection_number' => ['nullable', 'string', 'max:255', Rule::unique('veterinary_inspections', 'inspection_number')->ignore($ignoreId)],
             'slaughter_record_id' => ['required', 'exists:slaughter_records,id'],
-            'doctor' => ['required', 'string', 'max:255'],
-            'inspection_date' => ['required', 'date'],
-            'inspection_result' => ['required', Rule::in(['Approved', 'Partial Reject', 'Full Reject'])],
+            'doctor' => ['nullable', 'string', 'max:255'],
+            'inspection_date' => ['nullable', 'date'],
+            'inspection_result' => ['nullable', Rule::in(['Approved', 'Partial Reject', 'Full Reject'])],
             'disease_observation' => ['nullable', 'string'],
             'remarks' => ['nullable', 'string'],
         ];

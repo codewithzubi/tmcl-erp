@@ -18,10 +18,10 @@ class SupplierContactPersonController extends Controller
     {
         $data = $request->validate([
             'supplier_id' => ['required', 'exists:suppliers,id'],
-            'name' => ['required', 'string', 'max:255'],
-            'designation' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email'],
-            'mobile' => ['required', 'string', 'max:50'],
+            'name' => ['nullable', 'string', 'max:255'],
+            'designation' => ['nullable', 'string', 'max:255'],
+            'email' => ['nullable', 'email'],
+            'mobile' => ['nullable', 'string', 'max:50'],
             'is_primary' => ['boolean'],
         ]);
 
@@ -31,10 +31,10 @@ class SupplierContactPersonController extends Controller
     public function update(Request $request, SupplierContactPerson $supplierContactPerson)
     {
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'designation' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email'],
-            'mobile' => ['required', 'string', 'max:50'],
+            'name' => ['nullable', 'string', 'max:255'],
+            'designation' => ['nullable', 'string', 'max:255'],
+            'email' => ['nullable', 'email'],
+            'mobile' => ['nullable', 'string', 'max:50'],
             'is_primary' => ['boolean'],
         ]);
 

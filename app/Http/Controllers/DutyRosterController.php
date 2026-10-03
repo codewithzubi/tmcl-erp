@@ -49,9 +49,9 @@ class DutyRosterController extends Controller
         return [
             'user_id' => ['required', 'exists:users,id'],
             'shift_id' => ['required', 'exists:shifts,id'],
-            'duty_date' => ['required', 'date'],
+            'duty_date' => ['nullable', 'date'],
             'department' => ['nullable', 'string', 'max:255'],
-            'status' => ['required', Rule::in(['Scheduled', 'Completed', 'Absent'])],
+            'status' => ['nullable', Rule::in(['Scheduled', 'Completed', 'Absent'])],
             'remarks' => ['nullable', 'string'],
         ];
     }

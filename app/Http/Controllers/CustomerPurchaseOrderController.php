@@ -46,12 +46,12 @@ class CustomerPurchaseOrderController extends Controller
     private function rules(?int $ignoreId = null): array
     {
         return [
-            'purchase_order_number' => ['required', 'string', 'max:255', Rule::unique('customer_purchase_orders', 'purchase_order_number')->ignore($ignoreId)],
+            'purchase_order_number' => ['nullable', 'string', 'max:255', Rule::unique('customer_purchase_orders', 'purchase_order_number')->ignore($ignoreId)],
             'customer_id' => ['required', 'exists:customers,id'],
             'linked_proposal_id' => ['nullable', 'exists:proposals,id'],
-            'po_date' => ['required', 'date'],
-            'delivery_date' => ['required', 'date'],
-            'status' => ['required', Rule::in(['Pending Review', 'Approved', 'Rejected'])],
+            'po_date' => ['nullable', 'date'],
+            'delivery_date' => ['nullable', 'date'],
+            'status' => ['nullable', Rule::in(['Pending Review', 'Approved', 'Rejected'])],
             'internal_remarks' => ['nullable', 'string'],
         ];
     }

@@ -42,7 +42,7 @@ class BreedController extends Controller
     private function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['nullable', 'string', 'max:255'],
             'code' => ['nullable', 'string', 'max:50'],
         ];
     }

@@ -20,12 +20,12 @@ class LivestockSupplyRecordController extends Controller
     {
         $data = $request->validate([
             'supplier_id' => ['required', 'exists:suppliers,id'],
-            'grn_number' => ['required', 'string', 'max:255'],
-            'livestock_type' => ['required', 'string', 'max:255'],
-            'number_of_animals' => ['required', 'integer', 'min:0'],
-            'total_weight_kg' => ['required', 'numeric', 'min:0'],
-            'receipt_date' => ['required', 'date'],
-            'status' => ['required', Rule::in(['Accepted', 'Partially Accepted', 'Rejected'])],
+            'grn_number' => ['nullable', 'string', 'max:255'],
+            'livestock_type' => ['nullable', 'string', 'max:255'],
+            'number_of_animals' => ['nullable', 'integer', 'min:0'],
+            'total_weight_kg' => ['nullable', 'numeric', 'min:0'],
+            'receipt_date' => ['nullable', 'date'],
+            'status' => ['nullable', Rule::in(['Accepted', 'Partially Accepted', 'Rejected'])],
         ]);
 
         return LivestockSupplyRecord::create($data);

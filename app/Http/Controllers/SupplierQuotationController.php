@@ -46,17 +46,17 @@ class SupplierQuotationController extends Controller
     private function rules(?int $ignoreId = null): array
     {
         return [
-            'quotation_number' => ['required', 'string', 'max:255', Rule::unique('supplier_quotations', 'quotation_number')->ignore($ignoreId)],
+            'quotation_number' => ['nullable', 'string', 'max:255', Rule::unique('supplier_quotations', 'quotation_number')->ignore($ignoreId)],
             'purchase_requisition_id' => ['required', 'exists:purchase_requisitions,id'],
             'supplier_id' => ['required', 'exists:suppliers,id'],
-            'quotation_date' => ['required', 'date'],
-            'price_per_kg' => ['required', 'numeric', 'min:0'],
-            'number_of_animals' => ['required', 'integer', 'min:0'],
-            'total_weight_kg' => ['required', 'numeric', 'min:0'],
+            'quotation_date' => ['nullable', 'date'],
+            'price_per_kg' => ['nullable', 'numeric', 'min:0'],
+            'number_of_animals' => ['nullable', 'integer', 'min:0'],
+            'total_weight_kg' => ['nullable', 'numeric', 'min:0'],
             'delivery_charges' => ['nullable', 'numeric', 'min:0'],
-            'payment_terms' => ['required', 'string', 'max:255'],
-            'delivery_schedule' => ['required', 'date'],
-            'status' => ['required', Rule::in(['Received', 'Under Review', 'Selected', 'Rejected'])],
+            'payment_terms' => ['nullable', 'string', 'max:255'],
+            'delivery_schedule' => ['nullable', 'date'],
+            'status' => ['nullable', Rule::in(['Received', 'Under Review', 'Selected', 'Rejected'])],
         ];
     }
 }

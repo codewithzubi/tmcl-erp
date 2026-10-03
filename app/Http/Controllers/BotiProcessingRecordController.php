@@ -50,11 +50,11 @@ class BotiProcessingRecordController extends Controller
             'processing_number' => ['nullable', 'string', 'max:255', Rule::unique('boti_processing_records', 'processing_number')->ignore($ignoreId)],
             'lot_id' => ['required', 'exists:lots,id'],
             'slaughter_record_id' => ['required', 'exists:slaughter_records,id'],
-            'processing_date' => ['required', 'date'],
-            'input_weight' => ['required', 'numeric', 'min:0'],
-            'boti_weight' => ['required', 'numeric', 'min:0'],
-            'bone_weight' => ['required', 'numeric', 'min:0'],
-            'operator' => ['required', 'string', 'max:255'],
+            'processing_date' => ['nullable', 'date'],
+            'input_weight' => ['nullable', 'numeric', 'min:0'],
+            'boti_weight' => ['nullable', 'numeric', 'min:0'],
+            'bone_weight' => ['nullable', 'numeric', 'min:0'],
+            'operator' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

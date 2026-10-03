@@ -19,10 +19,10 @@ class GateEntryAttachmentController extends Controller
     {
         $data = $request->validate([
             'gate_entry_id' => ['required', 'exists:gate_entries,id'],
-            'slot' => ['required', Rule::in(['entry_photograph', 'driver_cnic_copy', 'vehicle_documents', 'additional'])],
-            'file_name' => ['required', 'string', 'max:255'],
-            'file_type' => ['required', 'string', 'max:100'],
-            'size_kb' => ['required', 'integer', 'min:0'],
+            'slot' => ['nullable', Rule::in(['entry_photograph', 'driver_cnic_copy', 'vehicle_documents', 'additional'])],
+            'file_name' => ['nullable', 'string', 'max:255'],
+            'file_type' => ['nullable', 'string', 'max:100'],
+            'size_kb' => ['nullable', 'integer', 'min:0'],
         ]);
 
         return GateEntryAttachment::create($data);

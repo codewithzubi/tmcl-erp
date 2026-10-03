@@ -23,11 +23,11 @@ class SystemSettingController extends Controller
     public function update(Request $request)
     {
         $data = $request->validate([
-            'company_name' => ['required', 'string', 'max:255'],
-            'time_zone' => ['required', 'string', 'max:255'],
-            'date_format' => ['required', 'string', 'max:255'],
-            'default_currency' => ['required', 'string', 'max:10'],
-            'language' => ['required', 'string', 'max:255'],
+            'company_name' => ['nullable', 'string', 'max:255'],
+            'time_zone' => ['nullable', 'string', 'max:255'],
+            'date_format' => ['nullable', 'string', 'max:255'],
+            'default_currency' => ['nullable', 'string', 'max:10'],
+            'language' => ['nullable', 'string', 'max:255'],
         ]);
 
         $settings = SystemSetting::firstOrNew([]);

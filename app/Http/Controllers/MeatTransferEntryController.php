@@ -39,16 +39,16 @@ class MeatTransferEntryController extends Controller
     {
         return [
             'slaughter_record_id' => ['required', 'exists:slaughter_records,id'],
-            'chiller_name' => ['nullable', 'required_without:blast_freezer_name', 'string', 'max:255'],
-            'blast_freezer_name' => ['nullable', 'required_without:chiller_name', 'string', 'max:255'],
-            'chiller_out_time' => ['required', 'date'],
-            'transaction_type' => ['required', 'string', 'max:255'],
+            'chiller_name' => ['nullable', 'string', 'max:255'],
+            'blast_freezer_name' => ['nullable', 'string', 'max:255'],
+            'chiller_out_time' => ['nullable', 'date'],
+            'transaction_type' => ['nullable', 'string', 'max:255'],
             'transfer_department' => ['nullable', 'string', 'max:255'],
             'customer_id' => ['nullable', 'exists:customers,id'],
-            'quantity' => ['required', 'numeric', 'min:0'],
+            'quantity' => ['nullable', 'numeric', 'min:0'],
             'tag_allocations' => ['nullable', 'array'],
-            'tag_allocations.*.tag_id' => ['required_with:tag_allocations', 'string', 'max:255'],
-            'tag_allocations.*.weight' => ['required_with:tag_allocations', 'numeric', 'min:0'],
+            'tag_allocations.*.tag_id' => ['nullable', 'string', 'max:255'],
+            'tag_allocations.*.weight' => ['nullable', 'numeric', 'min:0'],
         ];
     }
 }

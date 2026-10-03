@@ -46,20 +46,20 @@ class SupplierPurchaseOrderController extends Controller
     private function rules(?int $ignoreId = null): array
     {
         return [
-            'purchase_order_number' => ['required', 'string', 'max:255', Rule::unique('supplier_purchase_orders', 'purchase_order_number')->ignore($ignoreId)],
+            'purchase_order_number' => ['nullable', 'string', 'max:255', Rule::unique('supplier_purchase_orders', 'purchase_order_number')->ignore($ignoreId)],
             'purchase_requisition_id' => ['required', 'exists:purchase_requisitions,id'],
             'supplier_id' => ['required', 'exists:suppliers,id'],
             'quotation_id' => ['required', 'exists:supplier_quotations,id'],
-            'po_date' => ['required', 'date'],
-            'delivery_date' => ['required', 'date'],
-            'livestock_type' => ['required', 'string', 'max:255'],
-            'quantity' => ['required', 'integer', 'min:0'],
-            'estimated_weight_kg' => ['required', 'numeric', 'min:0'],
-            'unit_rate' => ['required', 'numeric', 'min:0'],
-            'total_amount' => ['required', 'numeric', 'min:0'],
+            'po_date' => ['nullable', 'date'],
+            'delivery_date' => ['nullable', 'date'],
+            'livestock_type' => ['nullable', 'string', 'max:255'],
+            'quantity' => ['nullable', 'integer', 'min:0'],
+            'estimated_weight_kg' => ['nullable', 'numeric', 'min:0'],
+            'unit_rate' => ['nullable', 'numeric', 'min:0'],
+            'total_amount' => ['nullable', 'numeric', 'min:0'],
             'terms_and_conditions' => ['nullable', 'string'],
-            'supplier_approval_status' => ['required', Rule::in(['Pending', 'Accepted', 'Declined'])],
-            'purchase_order_status' => ['required', Rule::in(['Draft', 'Sent to Supplier', 'Confirmed', 'Completed', 'Cancelled'])],
+            'supplier_approval_status' => ['nullable', Rule::in(['Pending', 'Accepted', 'Declined'])],
+            'purchase_order_status' => ['nullable', Rule::in(['Draft', 'Sent to Supplier', 'Confirmed', 'Completed', 'Cancelled'])],
         ];
     }
 }

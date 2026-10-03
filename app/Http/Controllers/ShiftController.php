@@ -43,10 +43,10 @@ class ShiftController extends Controller
     private function rules(): array
     {
         return [
-            'shift_name' => ['required', 'string', 'max:255'],
-            'start_time' => ['required', 'date_format:H:i'],
-            'end_time' => ['required', 'date_format:H:i'],
-            'status' => ['required', Rule::in(['Active', 'Inactive'])],
+            'shift_name' => ['nullable', 'string', 'max:255'],
+            'start_time' => ['nullable', 'date_format:H:i'],
+            'end_time' => ['nullable', 'date_format:H:i'],
+            'status' => ['nullable', Rule::in(['Active', 'Inactive'])],
         ];
     }
 }

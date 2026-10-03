@@ -30,9 +30,9 @@ class NotificationController extends Controller
     {
         $data = $request->validate([
             'user_id' => ['nullable', 'exists:users,id'],
-            'category' => ['required', Rule::in(['Event', 'Alert'])],
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
+            'category' => ['nullable', Rule::in(['Event', 'Alert'])],
+            'title' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
         ]);
 
         return AppNotification::create($data);

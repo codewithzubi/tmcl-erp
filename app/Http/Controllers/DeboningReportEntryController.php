@@ -42,7 +42,7 @@ class DeboningReportEntryController extends Controller
             'description' => ['nullable', 'string', 'max:255'],
             'no_of_animals' => ['nullable', 'numeric', 'min:0'],
             'cut_breakdown' => ['nullable', 'array'],
-            'cut_breakdown.*.name' => ['required_with:cut_breakdown', 'string', 'max:255'],
+            'cut_breakdown.*.name' => ['nullable', 'string', 'max:255'],
             'cut_breakdown.*.cartons' => ['nullable', 'numeric', 'min:0'],
             'cut_breakdown.*.net_weight' => ['nullable', 'numeric', 'min:0'],
             'new_balance_boneless' => ['nullable', 'numeric', 'min:0'],

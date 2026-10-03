@@ -19,8 +19,8 @@ class CustomerDiscussionNoteController extends Controller
     {
         $data = $request->validate([
             'customer_id' => ['required', 'exists:customers,id'],
-            'author' => ['required', 'string', 'max:255'],
-            'note' => ['required', 'string'],
+            'author' => ['nullable', 'string', 'max:255'],
+            'note' => ['nullable', 'string'],
         ]);
 
         return CustomerDiscussionNote::create($data);

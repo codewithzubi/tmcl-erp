@@ -62,11 +62,11 @@ class OffalSettlementController extends Controller
         return [
             'supplier_id' => ['required', 'exists:suppliers,id'],
             'lot_id' => ['required', 'exists:lots,id'],
-            'by_product_type' => ['required', 'string', 'max:255'],
-            'total_weight' => ['required', 'numeric', 'min:0'],
-            'disposal_method' => ['required', Rule::in(['Return to Supplier', 'Purchase by Company'])],
+            'by_product_type' => ['nullable', 'string', 'max:255'],
+            'total_weight' => ['nullable', 'numeric', 'min:0'],
+            'disposal_method' => ['nullable', Rule::in(['Return to Supplier', 'Purchase by Company'])],
             'purchase_rate' => ['nullable', 'numeric', 'min:0'],
-            'status' => ['required', Rule::in(['Pending', 'Approved', 'Paid'])],
+            'status' => ['nullable', Rule::in(['Pending', 'Approved', 'Paid'])],
         ];
     }
 }

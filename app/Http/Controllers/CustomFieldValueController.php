@@ -13,8 +13,8 @@ class CustomFieldValueController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'module' => ['required', 'string'],
-            'record_id' => ['required', 'integer'],
+            'module' => ['nullable', 'string'],
+            'record_id' => ['nullable', 'integer'],
         ]);
 
         return CustomFieldDefinition::where('module', $request->module)
@@ -37,9 +37,9 @@ class CustomFieldValueController extends Controller
     public function upsert(Request $request)
     {
         $data = $request->validate([
-            'module' => ['required', 'string'],
-            'record_id' => ['required', 'integer'],
-            'values' => ['required', 'array'],
+            'module' => ['nullable', 'string'],
+            'record_id' => ['nullable', 'integer'],
+            'values' => ['nullable', 'array'],
         ]);
 
         $definitions = CustomFieldDefinition::where('module', $data['module'])

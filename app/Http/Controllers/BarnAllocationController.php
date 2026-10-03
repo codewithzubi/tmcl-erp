@@ -50,15 +50,15 @@ class BarnAllocationController extends Controller
         return [
             'allocation_number' => ['nullable', 'string', 'max:255', Rule::unique('barn_allocations', 'allocation_number')->ignore($ignoreId)],
             'grn_id' => ['required', 'exists:grns,id'],
-            'barn' => ['required', 'string', 'max:255'],
+            'barn' => ['nullable', 'string', 'max:255'],
             'batch_number' => ['nullable', 'string', 'max:255', Rule::unique('barn_allocations', 'batch_number')->ignore($ignoreId)],
-            'livestock_type' => ['required', 'string', 'max:255'],
-            'number_of_animals_allocated' => ['required', 'integer', 'min:0'],
-            'total_weight' => ['required', 'numeric', 'min:0'],
-            'allocation_date' => ['required', 'date'],
-            'supervisor' => ['required', 'string', 'max:255'],
+            'livestock_type' => ['nullable', 'string', 'max:255'],
+            'number_of_animals_allocated' => ['nullable', 'integer', 'min:0'],
+            'total_weight' => ['nullable', 'numeric', 'min:0'],
+            'allocation_date' => ['nullable', 'date'],
+            'supervisor' => ['nullable', 'string', 'max:255'],
             'remarks' => ['nullable', 'string'],
-            'allocation_status' => ['required', Rule::in(['Allocated', 'Moved', 'Completed'])],
+            'allocation_status' => ['nullable', Rule::in(['Allocated', 'Moved', 'Completed'])],
         ];
     }
 }

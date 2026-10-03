@@ -49,10 +49,10 @@ class OffalRecoveryController extends Controller
         return [
             'recovery_number' => ['nullable', 'string', 'max:255', Rule::unique('offal_recoveries', 'recovery_number')->ignore($ignoreId)],
             'slaughter_record_id' => ['required', 'exists:slaughter_records,id'],
-            'recovery_date' => ['required', 'date'],
-            'recovery_type' => ['required', Rule::in(['Offal', 'Fat', 'Hide/Skin', 'Waste', 'Other'])],
-            'measured_weight' => ['required', 'numeric', 'min:0'],
-            'recorded_by' => ['required', 'string', 'max:255'],
+            'recovery_date' => ['nullable', 'date'],
+            'recovery_type' => ['nullable', Rule::in(['Offal', 'Fat', 'Hide/Skin', 'Waste', 'Other'])],
+            'measured_weight' => ['nullable', 'numeric', 'min:0'],
+            'recorded_by' => ['nullable', 'string', 'max:255'],
             'remarks' => ['nullable', 'string'],
         ];
     }

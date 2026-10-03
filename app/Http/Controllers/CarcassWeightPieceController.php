@@ -24,7 +24,7 @@ class CarcassWeightPieceController extends Controller
     {
         $data = $request->validate([
             'carcass_weight_record_id' => ['required', 'exists:carcass_weight_records,id'],
-            'piece_name' => ['required', Rule::in(['Dasti', 'Raan'])],
+            'piece_name' => ['nullable', Rule::in(['Dasti', 'Raan'])],
         ]);
 
         $record = CarcassWeightRecord::with('slaughterRecord')->findOrFail($data['carcass_weight_record_id']);
@@ -50,7 +50,7 @@ class CarcassWeightPieceController extends Controller
     public function update(Request $request, CarcassWeightPiece $carcassWeightPiece)
     {
         $data = $request->validate([
-            'piece_name' => ['required', Rule::in(['Dasti', 'Raan'])],
+            'piece_name' => ['nullable', Rule::in(['Dasti', 'Raan'])],
         ]);
 
         if ($data['piece_name'] !== $carcassWeightPiece->piece_name) {
