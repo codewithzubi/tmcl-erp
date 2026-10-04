@@ -13,6 +13,7 @@ class CarcassWeightRecord extends Model
         'gender', 'specie', 'breed', 'age', 'teeth', 'hook_weight', 'photo_path', 'locked', 'photo_locked',
         'customer_id', 'supplier_id', 'chiller_name', 'blast_freezer_name', 'print_tags', 'cut_type',
         'piece_customers', 'piece_suppliers', 'piece_chillers', 'piece_chiller_in_times', 'piece_blast_freezers', 'piece_photos',
+        'piece_weight_locks',
     ];
 
     protected $casts = [
@@ -24,6 +25,7 @@ class CarcassWeightRecord extends Model
         'piece_suppliers' => 'array',
         'piece_chillers' => 'array',
         'piece_chiller_in_times' => 'array',
+        'piece_weight_locks' => 'array',
         'piece_blast_freezers' => 'array',
         'piece_photos' => 'array',
     ];
