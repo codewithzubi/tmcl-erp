@@ -126,6 +126,7 @@ class CarcassWeightRecordController extends Controller
             'hook_weight' => ['nullable', 'numeric', 'min:0'],
             'photo_path' => ['nullable', 'string', 'max:255'],
             'locked' => ['boolean'],
+            'photo_locked' => ['boolean'],
             'customer_id' => ['nullable', 'exists:customers,id'],
             'supplier_id' => ['nullable', 'exists:suppliers,id'],
             'chiller_name' => ['nullable', 'string', 'max:255'],
