@@ -17,6 +17,7 @@ class SystemSettingController extends Controller
             'date_format' => 'YYYY-MM-DD',
             'default_currency' => 'PKR',
             'language' => 'English',
+            'day_start_hour' => 6,
         ]);
     }
 
@@ -28,6 +29,7 @@ class SystemSettingController extends Controller
             'date_format' => ['nullable', 'string', 'max:255'],
             'default_currency' => ['nullable', 'string', 'max:10'],
             'language' => ['nullable', 'string', 'max:255'],
+            'day_start_hour' => ['nullable', 'integer', 'min:0', 'max:23'],
         ]);
 
         $settings = SystemSetting::firstOrNew([]);
