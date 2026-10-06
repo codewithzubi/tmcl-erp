@@ -121,6 +121,8 @@ class SlaughterRecordController extends Controller
             'attachment_title' => ['nullable', 'string', 'max:255'],
             'attachment_description' => ['nullable', 'string'],
             'end_slaughter_at' => ['nullable', 'date'],
+            'reopened_at' => ['nullable', 'date'],
+            'reopened_by' => ['nullable', 'string', 'max:255'],
             'rejection_weight' => ['nullable', 'numeric', 'min:0'],
             'final_weight' => ['nullable', 'numeric', 'min:0'],
             'custom_adjustments' => ['nullable', 'array'],
