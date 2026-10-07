@@ -132,6 +132,11 @@ class SlaughterRecordController extends Controller
             'rejected_pieces_entries.*.title' => ['nullable', 'string', 'max:255'],
             'rejected_pieces_entries.*.pieces' => ['nullable', 'integer', 'min:0'],
             'rejected_pieces_entries.*.weight' => ['nullable', 'numeric', 'min:0'],
+            // Note: this blob's sub-fields are sent camelCase, unlike most of
+            // the API, since rejected_pieces_entries is passed straight
+            // through from the frontend's own object shape (see
+            // slaughterRecordToApi) rather than being remapped key-by-key.
+            'rejected_pieces_entries.*.reweighedWeight' => ['nullable', 'numeric', 'min:0'],
             'offal_entries' => ['nullable', 'array'],
             'offal_entries.*.supplier_id' => ['nullable', 'exists:suppliers,id'],
             'offal_entries.*.pieces' => ['nullable', 'integer', 'min:0'],
