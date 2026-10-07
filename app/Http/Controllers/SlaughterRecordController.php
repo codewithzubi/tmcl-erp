@@ -131,6 +131,7 @@ class SlaughterRecordController extends Controller
             'rejected_pieces_entries' => ['nullable', 'array'],
             'rejected_pieces_entries.*.title' => ['nullable', 'string', 'max:255'],
             'rejected_pieces_entries.*.pieces' => ['nullable', 'integer', 'min:0'],
+            'rejected_pieces_entries.*.weight' => ['nullable', 'numeric', 'min:0'],
             'offal_entries' => ['nullable', 'array'],
             'offal_entries.*.supplier_id' => ['nullable', 'exists:suppliers,id'],
             'offal_entries.*.pieces' => ['nullable', 'integer', 'min:0'],
