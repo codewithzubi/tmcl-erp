@@ -51,7 +51,7 @@ class ShipmentController extends Controller
             'customer_id' => ['nullable', 'exists:customers,id'],
             'sales_order_id' => ['nullable', 'exists:sales_orders,id'],
             'customer_name' => ['nullable', 'string', 'max:255'],
-            'shipment_method' => ['nullable', Rule::in(['Air', 'Sea'])],
+            'shipment_method' => ['nullable', Rule::in(['Air', 'Sea', 'Road'])],
             'shipment_date' => ['nullable', 'date'],
             'expected_delivery_date' => ['nullable', 'date'],
             'destination_country' => ['nullable', 'string', 'max:255'],
