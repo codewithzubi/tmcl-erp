@@ -14,7 +14,7 @@ class SlaughterRecord extends Model
         'teeth', 'age', 'gender', 'specie', 'breed', 'attachment_path', 'attachment_type', 'attachment_data',
         'attachment_title', 'attachment_description',
         'end_slaughter_at', 'reopened_at', 'reopened_by', 'rejection_weight', 'final_weight', 'custom_adjustments', 'rejected_pieces_entries',
-        'offal_entries',
+        'offal_entries', 'supplier_rejection_recoveries',
         'rejected_piece_ids', 're_weight_entries', 'chiller_transfers', 'blast_freezer_transfers',
         'chiller_transfer_qty', 'blast_freezer_transfer_qty', 'boti_transfer_qty', 'boneless_transfer_qty',
     ];
@@ -27,6 +27,7 @@ class SlaughterRecord extends Model
         'custom_adjustments' => 'array',
         'rejected_pieces_entries' => 'array',
         'offal_entries' => 'array',
+        'supplier_rejection_recoveries' => 'array',
         'rejected_piece_ids' => 'array',
         're_weight_entries' => 'array',
         'chiller_transfers' => 'array',

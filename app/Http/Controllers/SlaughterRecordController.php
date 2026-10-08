@@ -128,6 +128,8 @@ class SlaughterRecordController extends Controller
             'custom_adjustments' => ['nullable', 'array'],
             'custom_adjustments.*.title' => ['nullable', 'string', 'max:255'],
             'custom_adjustments.*.amount' => ['nullable', 'numeric'],
+            // Also camelCase, same reason as rejected_pieces_entries.* below.
+            'custom_adjustments.*.supplierId' => ['nullable', 'string', 'max:255'],
             'rejected_pieces_entries' => ['nullable', 'array'],
             'rejected_pieces_entries.*.title' => ['nullable', 'string', 'max:255'],
             'rejected_pieces_entries.*.pieces' => ['nullable', 'integer', 'min:0'],
@@ -137,6 +139,7 @@ class SlaughterRecordController extends Controller
             // through from the frontend's own object shape (see
             // slaughterRecordToApi) rather than being remapped key-by-key.
             'rejected_pieces_entries.*.reweighedWeight' => ['nullable', 'numeric', 'min:0'],
+            'rejected_pieces_entries.*.supplierId' => ['nullable', 'string', 'max:255'],
             'offal_entries' => ['nullable', 'array'],
             'offal_entries.*.supplier_id' => ['nullable', 'exists:suppliers,id'],
             'offal_entries.*.pieces' => ['nullable', 'integer', 'min:0'],
@@ -144,6 +147,7 @@ class SlaughterRecordController extends Controller
             'offal_entries.*.comments' => ['nullable', 'string'],
             'rejected_piece_ids' => ['nullable', 'array'],
             'rejected_piece_ids.*' => ['string', 'max:255'],
+            'supplier_rejection_recoveries' => ['nullable', 'array'],
             're_weight_entries' => ['nullable', 'array'],
             're_weight_entries.*.tag_id' => ['nullable', 'string', 'max:255'],
             're_weight_entries.*.original_weight' => ['nullable', 'numeric', 'min:0'],
