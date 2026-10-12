@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CarcassWeightRecord;
+use App\Models\SlaughterRecord;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -50,9 +52,38 @@ class SupplierController extends Controller
 
     public function destroy(Supplier $supplier)
     {
+        if ($count = $this->linkedRecordCount($supplier)) {
+            return response()->json([
+                'message' => "Cannot delete this supplier — {$count} Slaughter/Carcass Weight record(s) already have tags assigned to it. Reassign or remove those first.",
+            ], 422);
+        }
+
         $supplier->delete();
 
         return response()->noContent();
+    }
+
+    // Screenshot 21 — a supplier already referenced by production data
+    // (a Slaughter record's supplier_id/supplier_ids, or a Carcass Weight
+    // record's supplier_id/piece_suppliers) must not be deletable, or those
+    // records are left pointing at a supplier id that no longer exists —
+    // the same kind of orphaned reference that caused the stale
+    // company_name/"ABC" issue. piece_suppliers is a JSON object (piece
+    // code => supplier id), so it's checked in PHP rather than SQL.
+    private function linkedRecordCount(Supplier $supplier): int
+    {
+        $slaughterCount = SlaughterRecord::where('supplier_id', $supplier->id)
+            ->orWhereJsonContains('supplier_ids', $supplier->id)
+            ->count();
+
+        $carcassWeightCount = CarcassWeightRecord::where('supplier_id', $supplier->id)
+            ->orWhereNotNull('piece_suppliers')
+            ->get(['id', 'supplier_id', 'piece_suppliers'])
+            ->filter(fn ($c) => $c->supplier_id === $supplier->id
+                || in_array($supplier->id, array_values($c->piece_suppliers ?? [])))
+            ->count();
+
+        return $slaughterCount + $carcassWeightCount;
     }
 
     private function rules(?int $ignoreId = null): array

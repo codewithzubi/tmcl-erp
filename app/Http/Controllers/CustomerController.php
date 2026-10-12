@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CarcassWeightRecord;
 use App\Models\Customer;
+use App\Models\SlaughterRecord;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -48,9 +50,35 @@ class CustomerController extends Controller
 
     public function destroy(Customer $customer)
     {
+        if ($count = $this->linkedRecordCount($customer)) {
+            return response()->json([
+                'message' => "Cannot delete this customer — {$count} Slaughter/Carcass Weight record(s) already have tags assigned to it. Reassign or remove those first.",
+            ], 422);
+        }
+
         $customer->delete();
 
         return response()->noContent();
+    }
+
+    // Screenshot 21 — same reasoning as SupplierController's own
+    // linkedRecordCount: a customer already referenced by production data
+    // must not be deletable, or those records are left pointing at a
+    // customer id that no longer exists.
+    private function linkedRecordCount(Customer $customer): int
+    {
+        $slaughterCount = SlaughterRecord::where('customer_id', $customer->id)
+            ->orWhereJsonContains('customer_ids', $customer->id)
+            ->count();
+
+        $carcassWeightCount = CarcassWeightRecord::where('customer_id', $customer->id)
+            ->orWhereNotNull('piece_customers')
+            ->get(['id', 'customer_id', 'piece_customers'])
+            ->filter(fn ($c) => $c->customer_id === $customer->id
+                || in_array($customer->id, array_values($c->piece_customers ?? [])))
+            ->count();
+
+        return $slaughterCount + $carcassWeightCount;
     }
 
     private function rules(?int $ignoreId = null): array
