@@ -45,6 +45,7 @@ class MeatTransferEntryController extends Controller
             'transaction_type' => ['nullable', 'string', 'max:255'],
             'transfer_department' => ['nullable', 'string', 'max:255'],
             'customer_id' => ['nullable', 'exists:customers,id'],
+            'supplier_id' => ['nullable', 'exists:suppliers,id'],
             'quantity' => ['nullable', 'numeric', 'min:0'],
             'tag_allocations' => ['nullable', 'array'],
             'tag_allocations.*.tag_id' => ['nullable', 'string', 'max:255'],
