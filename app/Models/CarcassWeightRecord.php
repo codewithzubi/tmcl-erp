@@ -13,7 +13,7 @@ class CarcassWeightRecord extends Model
         'gender', 'specie', 'breed', 'age', 'teeth', 'hook_weight', 'photo_path', 'locked', 'photo_locked',
         'customer_id', 'supplier_id', 'chiller_name', 'blast_freezer_name', 'print_tags', 'cut_type',
         'piece_customers', 'piece_suppliers', 'piece_chillers', 'piece_chiller_in_times', 'piece_blast_freezers',
-        'piece_blast_freezer_in_times', 'piece_photos',
+        'piece_blast_freezer_in_times', 'piece_freezers', 'piece_freezer_in_times', 'piece_photos',
         'piece_weight_locks',
     ];
 
@@ -29,6 +29,8 @@ class CarcassWeightRecord extends Model
         'piece_weight_locks' => 'array',
         'piece_blast_freezers' => 'array',
         'piece_blast_freezer_in_times' => 'array',
+        'piece_freezers' => 'array',
+        'piece_freezer_in_times' => 'array',
         'piece_photos' => 'array',
     ];
 

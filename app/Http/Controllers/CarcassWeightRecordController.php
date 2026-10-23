@@ -139,6 +139,8 @@ class CarcassWeightRecordController extends Controller
             'piece_chiller_in_times' => ['nullable', 'array'],
             'piece_blast_freezers' => ['nullable', 'array'],
             'piece_blast_freezer_in_times' => ['nullable', 'array'],
+            'piece_freezers' => ['nullable', 'array'],
+            'piece_freezer_in_times' => ['nullable', 'array'],
             'piece_photos' => ['nullable', 'array'],
             'piece_weight_locks' => ['nullable', 'array'],
         ];

@@ -41,6 +41,7 @@ class MeatTransferEntryController extends Controller
             'slaughter_record_id' => ['required', 'exists:slaughter_records,id'],
             'chiller_name' => ['nullable', 'string', 'max:255'],
             'blast_freezer_name' => ['nullable', 'string', 'max:255'],
+            'freezer_name' => ['nullable', 'string', 'max:255'],
             'chiller_out_time' => ['nullable', 'date'],
             'transaction_type' => ['nullable', 'string', 'max:255'],
             'transfer_department' => ['nullable', 'string', 'max:255'],

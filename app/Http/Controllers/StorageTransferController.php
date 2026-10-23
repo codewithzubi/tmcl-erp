@@ -27,9 +27,9 @@ class StorageTransferController extends Controller
     {
         $data = $request->validate([
             'slaughter_record_id' => ['required', 'exists:slaughter_records,id'],
-            'from_type' => ['required', Rule::in(['Chiller', 'Blast Freezer'])],
+            'from_type' => ['required', Rule::in(['Chiller', 'Blast Freezer', 'Freezer'])],
             'from_name' => ['required', 'string', 'max:255'],
-            'to_type' => ['required', Rule::in(['Chiller', 'Blast Freezer'])],
+            'to_type' => ['required', Rule::in(['Chiller', 'Blast Freezer', 'Freezer'])],
             'to_name' => ['required', 'string', 'max:255'],
             'supplier_id' => ['nullable', 'exists:suppliers,id'],
             'tag_ids' => ['nullable', 'array'],

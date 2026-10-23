@@ -42,6 +42,7 @@ class ExportEntryController extends Controller
             'slaughter_record_id' => ['required', 'exists:slaughter_records,id'],
             'chiller_name' => ['nullable', 'string', 'max:255'],
             'blast_freezer_name' => ['nullable', 'string', 'max:255'],
+            'freezer_name' => ['nullable', 'string', 'max:255'],
             'chiller_out_time' => ['nullable', 'date'],
             'export_date_time' => ['nullable', 'date'],
             'export_quantity' => ['nullable', 'numeric', 'min:0'],
