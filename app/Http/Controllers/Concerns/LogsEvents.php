@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Concerns;
 
 use App\Models\EventLog;
+use App\Models\User;
 use Illuminate\Support\Facades\Request as RequestFacade;
 
 // Shared by controllers that back a "Field History" viewer on their screen:
@@ -10,11 +11,15 @@ use Illuminate\Support\Facades\Request as RequestFacade;
 // updated, or deleted.
 trait LogsEvents
 {
-    protected function logEvent(string $module, string $screen, string|int|null $recordId, string $action, ?string $newValue = null): void
+    // $actor overrides the signed-in user — for actions authorized by someone
+    // else's email/password (see AuthorizesWithCredentials).
+    protected function logEvent(string $module, string $screen, string|int|null $recordId, string $action, ?string $newValue = null, ?User $actor = null): void
     {
+        $actor ??= auth()->user();
+
         EventLog::create([
-            'user_id' => auth()->id(),
-            'role' => auth()->user()?->role?->name,
+            'user_id' => $actor?->id,
+            'role' => $actor?->role?->name,
             'module' => $module,
             'screen' => $screen,
             'record_id' => $recordId !== null ? (string) $recordId : null,

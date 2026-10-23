@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\AuthorizesWithCredentials;
 use App\Http\Controllers\Concerns\LogsEvents;
 use App\Models\SlaughterRecord;
 use Illuminate\Http\Request;
@@ -9,7 +10,7 @@ use Illuminate\Validation\Rule;
 
 class SlaughterRecordController extends Controller
 {
-    use LogsEvents;
+    use AuthorizesWithCredentials, LogsEvents;
 
     public function index(Request $request)
     {
@@ -64,6 +65,31 @@ class SlaughterRecordController extends Controller
         $data = $request->validate($this->rules($slaughterRecord->id));
         $slaughterRecord->update($data);
         $this->logEvent('Slaughter', 'Slaughter', $slaughterRecord->id, 'Update', json_encode($data));
+
+        return $slaughterRecord;
+    }
+
+    // 20 Oct 2026 point 3 — Reopen is password protected: whoever enters
+    // their email/password here is the one recorded as reopening it.
+    public function reopen(Request $request, SlaughterRecord $slaughterRecord)
+    {
+        $authorizer = $this->authorizeWithCredentials($request, 'slaughter', 'slaughter', 'reopen-slaughter');
+        $data = $request->validate(['reopened_at' => ['nullable', 'date']]);
+
+        if ($slaughterRecord->processing_status !== 'Completed') {
+            abort(409, 'Only an ended (Completed) slaughter can be reopened.');
+        }
+
+        $slaughterRecord->update([
+            'processing_status' => 'In Progress',
+            'reopened_at' => $data['reopened_at'] ?? now(),
+            'reopened_by' => $authorizer->name,
+        ]);
+        $this->logEvent(
+            'Slaughter', 'Slaughter', $slaughterRecord->id, 'Update',
+            json_encode(['reopened' => $slaughterRecord->animal_code, 'reopened_by' => $authorizer->email]),
+            $authorizer,
+        );
 
         return $slaughterRecord;
     }
