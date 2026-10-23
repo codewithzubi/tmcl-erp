@@ -147,26 +147,7 @@ class SlaughterRecordController extends Controller
 
         $newAnimalIds = collect($data['records'])->pluck('carcass_animal_id', 'id');
 
-        DB::transaction(function () use ($records, $target, $newAnimalIds) {
-            $supplierIds = collect($target->supplier_ids ?: [$target->supplier_id])->filter()->map(fn ($id) => (int) $id);
-            $customerIds = collect($target->customer_ids ?: [$target->customer_id])->filter()->map(fn ($id) => (int) $id);
-
-            foreach ($records as $record) {
-                $record->update([
-                    'slaughter_record_id' => $target->id,
-                    'carcass_animal_id' => $newAnimalIds[$record->id],
-                ]);
-                $supplierIds = $supplierIds->merge([$record->supplier_id])->merge(array_values($record->piece_suppliers ?? []));
-                $customerIds = $customerIds->merge([$record->customer_id])->merge(array_values($record->piece_customers ?? []));
-            }
-
-            $supplierIds = $supplierIds->filter()->map(fn ($id) => (int) $id)->unique()->values();
-            $customerIds = $customerIds->filter()->map(fn ($id) => (int) $id)->unique()->values();
-            $target->update([
-                'supplier_ids' => $supplierIds->count() > 1 ? $supplierIds->all() : $target->supplier_ids,
-                'customer_ids' => $customerIds->count() > 1 ? $customerIds->all() : $target->customer_ids,
-            ]);
-        });
+        DB::transaction(fn () => $this->moveAnimals($records, $target, $newAnimalIds));
 
         $this->logEvent(
             'Slaughter', 'Slaughter', $slaughterRecord->id, 'Update',
@@ -181,6 +162,97 @@ class SlaughterRecordController extends Controller
         );
 
         return ['from' => $slaughterRecord->fresh(), 'to' => $target->fresh()];
+    }
+
+    // 20 Oct 2026 point 14 — merge this Slaughter ID into another one: every
+    // animal and every row linked to it moves to the target, its suppliers/
+    // customers join the target's, then it is deleted. The target's own
+    // header (doctor, agent, remarks, End Slaughter data...) is kept; this
+    // one's full snapshot goes into the Event Log first. Only between two In
+    // Progress IDs, and not once anything here was Meat Transferred/Exported.
+    public function merge(Request $request, SlaughterRecord $slaughterRecord)
+    {
+        $authorizer = $this->authorizeWithCredentials($request, 'slaughter', 'slaughter', 'merge-slaughter');
+        $data = $request->validate([
+            'into_slaughter_record_id' => ['required', 'integer', 'exists:slaughter_records,id'],
+            'records' => ['present', 'array'],
+            'records.*.id' => ['required', 'integer', 'distinct'],
+            'records.*.carcass_animal_id' => ['required', 'string', 'max:255'],
+        ]);
+
+        $target = SlaughterRecord::findOrFail($data['into_slaughter_record_id']);
+        if ($target->id === $slaughterRecord->id) {
+            abort(422, 'Choose a different Slaughter ID to merge into.');
+        }
+        if ($slaughterRecord->processing_status !== 'In Progress' || $target->processing_status !== 'In Progress') {
+            abort(409, 'Both Slaughter IDs must be In Progress. Reopen a completed one first.');
+        }
+        if (MeatTransferEntry::where('slaughter_record_id', $slaughterRecord->id)->exists()
+            || ExportEntry::where('slaughter_record_id', $slaughterRecord->id)->exists()) {
+            abort(409, $slaughterRecord->animal_code.' already has Meat Transfer/Export entries and cannot be merged.');
+        }
+
+        $records = CarcassWeightRecord::where('slaughter_record_id', $slaughterRecord->id)->get();
+        $newAnimalIds = collect($data['records'])->pluck('carcass_animal_id', 'id');
+        if ($records->pluck('id')->sort()->values()->all() !== $newAnimalIds->keys()->map(fn ($id) => (int) $id)->sort()->values()->all()) {
+            abort(409, 'The animals on '.$slaughterRecord->animal_code.' changed. Refresh and try again.');
+        }
+
+        $snapshot = $slaughterRecord->toArray();
+
+        DB::transaction(function () use ($slaughterRecord, $target, $records, $newAnimalIds) {
+            $this->moveAnimals(
+                $records, $target, $newAnimalIds,
+                $slaughterRecord->supplier_ids ?: [$slaughterRecord->supplier_id],
+                $slaughterRecord->customer_ids ?: [$slaughterRecord->customer_id],
+            );
+            foreach ([
+                'offal_recoveries', 'veterinary_inspections', 'meat_deductions', 'storage_transfers',
+                'slaughtering_report_entries', 'boneless_processing_records', 'boti_processing_records',
+            ] as $table) {
+                DB::table($table)->where('slaughter_record_id', $slaughterRecord->id)->update(['slaughter_record_id' => $target->id]);
+            }
+            $slaughterRecord->delete();
+        });
+
+        $this->logEvent(
+            'Slaughter', 'Slaughter', $target->id, 'Update',
+            json_encode([
+                'merged_from' => $slaughterRecord->animal_code,
+                'merged_into' => $target->animal_code,
+                'animals' => $records->map(fn ($r) => explode('/', $r->carcass_animal_id)[0])->values(),
+                'authorized_by' => $authorizer->email,
+                'merged_record_snapshot' => $snapshot,
+            ]),
+            $authorizer,
+        );
+
+        return $target->fresh();
+    }
+
+    // Shared by transferTags/merge: re-point the given Carcass Weight records
+    // at $target with their recomposed IDs, and widen $target's supplier/
+    // customer lists to cover everything that moved in. Call inside a transaction.
+    private function moveAnimals($records, SlaughterRecord $target, $newAnimalIds, array $extraSupplierIds = [], array $extraCustomerIds = []): void
+    {
+        $supplierIds = collect($target->supplier_ids ?: [$target->supplier_id])->merge($extraSupplierIds);
+        $customerIds = collect($target->customer_ids ?: [$target->customer_id])->merge($extraCustomerIds);
+
+        foreach ($records as $record) {
+            $record->update([
+                'slaughter_record_id' => $target->id,
+                'carcass_animal_id' => $newAnimalIds[$record->id],
+            ]);
+            $supplierIds = $supplierIds->merge([$record->supplier_id])->merge(array_values($record->piece_suppliers ?? []));
+            $customerIds = $customerIds->merge([$record->customer_id])->merge(array_values($record->piece_customers ?? []));
+        }
+
+        $supplierIds = $supplierIds->filter()->map(fn ($id) => (int) $id)->unique()->values();
+        $customerIds = $customerIds->filter()->map(fn ($id) => (int) $id)->unique()->values();
+        $target->update([
+            'supplier_ids' => $supplierIds->count() > 1 ? $supplierIds->all() : $target->supplier_ids,
+            'customer_ids' => $customerIds->count() > 1 ? $customerIds->all() : $target->customer_ids,
+        ]);
     }
 
     public function destroy(SlaughterRecord $slaughterRecord)

@@ -127,6 +127,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('slaughter-records', SlaughterRecordController::class);
     Route::post('/slaughter-records/{slaughterRecord}/reopen', [SlaughterRecordController::class, 'reopen']);
     Route::post('/slaughter-records/{slaughterRecord}/transfer-tags', [SlaughterRecordController::class, 'transferTags']);
+    Route::post('/slaughter-records/{slaughterRecord}/merge', [SlaughterRecordController::class, 'merge']);
     Route::apiResource('offal-recoveries', OffalRecoveryController::class);
     Route::apiResource('carcass-weight-records', CarcassWeightRecordController::class);
     Route::post('/carcass-weight-records/{carcass_weight_record}/lock', [CarcassWeightRecordController::class, 'lock']);
