@@ -42,11 +42,13 @@ class StorageTransferController extends Controller
         $data['transferred_at'] = now();
         $transfer = StorageTransfer::create($data);
 
+        // event_logs.action is an enum (Create/Update/Delete/...) — "Transfer"
+        // isn't in it and made every storage transfer fail with a 500.
         $this->logEvent(
             'Cold Storage',
             'Cold Storage',
             $transfer->id,
-            'Transfer',
+            'Update',
             "{$data['weight']} kg from {$data['from_name']} to {$data['to_name']}" .
                 (($data['comments'] ?? null) ? " — {$data['comments']}" : ''),
         );
