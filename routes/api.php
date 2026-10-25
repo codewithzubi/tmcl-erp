@@ -16,6 +16,7 @@ use App\Http\Controllers\CustomerPurchaseOrderController;
 use App\Http\Controllers\CustomFieldDefinitionController;
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ExtraMaterialController;
+use App\Http\Controllers\PackagingMaterialController;
 use App\Http\Controllers\SpecieController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\MeatTransferEntryController;
@@ -80,6 +81,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('custom-field-definitions', CustomFieldDefinitionController::class);
     Route::apiResource('breeds', BreedController::class);
     Route::apiResource('extra-materials', ExtraMaterialController::class);
+    Route::apiResource('packaging-materials', PackagingMaterialController::class);
     Route::apiResource('species', SpecieController::class);
     Route::apiResource('genders', GenderController::class);
     Route::apiResource('offal-collectors', OffalCollectorController::class);
