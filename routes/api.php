@@ -16,6 +16,7 @@ use App\Http\Controllers\CustomerPurchaseOrderController;
 use App\Http\Controllers\CustomFieldDefinitionController;
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ExtraMaterialController;
+use App\Http\Controllers\ContainerController;
 use App\Http\Controllers\PackagingMaterialController;
 use App\Http\Controllers\SpecieController;
 use App\Http\Controllers\GenderController;
@@ -86,6 +87,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('genders', GenderController::class);
     Route::apiResource('offal-collectors', OffalCollectorController::class);
     Route::apiResource('meat-transfer-entries', MeatTransferEntryController::class)->only(['index', 'store', 'destroy']);
+    Route::post('containers/generate', [ContainerController::class, 'generate']);
+    Route::apiResource('containers', ContainerController::class)->only(['index', 'update', 'destroy']);
     Route::apiResource('export-entries', ExportEntryController::class)->only(['index', 'store', 'destroy']);
     Route::get('/custom-field-values', [CustomFieldValueController::class, 'index']);
     Route::put('/custom-field-values', [CustomFieldValueController::class, 'upsert']);

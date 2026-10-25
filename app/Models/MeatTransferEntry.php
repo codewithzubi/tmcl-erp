@@ -8,7 +8,7 @@ class MeatTransferEntry extends Model
 {
     protected $fillable = [
         'slaughter_record_id', 'chiller_name', 'blast_freezer_name', 'freezer_name', 'chiller_out_time',
-        'transaction_type', 'transfer_department', 'customer_id', 'supplier_id', 'quantity', 'cartons', 'carton_weight', 'yield_percent', 'tag_allocations',
+        'transaction_type', 'transfer_department', 'customer_id', 'supplier_id', 'quantity', 'cartons', 'carton_weight', 'yield_percent', 'container_id', 'tag_allocations',
     ];
 
     protected $casts = [

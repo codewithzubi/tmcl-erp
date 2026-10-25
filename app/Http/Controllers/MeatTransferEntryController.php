@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Concerns\LogsEvents;
 use App\Models\MeatTransferEntry;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class MeatTransferEntryController extends Controller
 {
@@ -20,7 +21,9 @@ class MeatTransferEntryController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate($this->rules());
+        $data = $request->validate($this->rules(), [
+            'container_id.exists' => 'This container is closed or no longer exists. Pick an open container.',
+        ]);
         $entry = MeatTransferEntry::create($data);
         $this->logEvent('MeatTransfer', 'MeatTransferEntry', $entry->id, 'Create', "{$entry->quantity} kg from {$entry->chiller_name}");
 
@@ -51,6 +54,8 @@ class MeatTransferEntryController extends Controller
             'cartons' => ['nullable', 'numeric', 'min:0'],
             'carton_weight' => ['nullable', 'numeric', 'min:0'],
             'yield_percent' => ['nullable', 'numeric', 'min:0'],
+            // Only an Open container can receive meat.
+            'container_id' => ['nullable', Rule::exists('containers', 'id')->where('status', 'Open')],
             'tag_allocations' => ['nullable', 'array'],
             'tag_allocations.*.tag_id' => ['nullable', 'string', 'max:255'],
             'tag_allocations.*.weight' => ['nullable', 'numeric', 'min:0'],
