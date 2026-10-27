@@ -63,6 +63,8 @@ class ExportEntryController extends Controller
             'tag_allocations' => ['nullable', 'array'],
             'tag_allocations.*.tag_id' => ['nullable', 'string', 'max:255'],
             'tag_allocations.*.weight' => ['nullable', 'numeric', 'min:0'],
+            // Set when exported from Container Management.
+            'container_id' => ['nullable', 'exists:containers,id'],
         ];
     }
 }
